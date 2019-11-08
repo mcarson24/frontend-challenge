@@ -72,7 +72,12 @@ fetch('https://dkw6qugbfeznv.cloudfront.net/')
       element.appendChild(title)
       const sidebar = document.getElementById('sidebar')
       sidebar.appendChild(element)
-
+      element.addEventListener('click', () => {
+        map.set('view', new View({
+          center: fromLonLat([location.geometry.coordinates[0], location.geometry.coordinates[1]]),
+          zoom: 17
+        }))
+      })
     })
   })
 
