@@ -4,7 +4,7 @@ const webpack 					= require('webpack');
 module.exports = {
 	entry: {
 		app: [
-			'./src/js/app.js',
+			'./src/js/test.js',
 		]
 	},
 	output: {
