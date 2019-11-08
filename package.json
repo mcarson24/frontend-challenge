@@ -4,7 +4,9 @@
   "description": "P'unk Avenue frontend node.js challenge",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode=development",
+    "production": "NODE_ENV=production webpack -p --mode=production",
+    "watch": "npm run dev -- --watch"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,16 @@
   "bugs": {
     "url": "https://github.com/punkave/frontend-challenge/issues"
   },
-  "homepage": "https://github.com/punkave/frontend-challenge#readme"
+  "homepage": "https://github.com/punkave/frontend-challenge#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "ol": "^6.1.1"
+  }
 }
