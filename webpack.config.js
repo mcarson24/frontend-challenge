@@ -1,10 +1,12 @@
-const path						= require('path');
-const webpack 					= require('webpack');
+const path									= require('path');
+const webpack 						 	= require('webpack');
+const MiniCssExtractPlugin 	= require('mini-css-extract-plugin');
 
 module.exports = {
 	entry: {
 		app: [
 			'./src/js/test.js',
+			'./src/css/style.css'
 		]
 	},
 	output: {
@@ -18,19 +20,40 @@ module.exports = {
 				exclude: /node_modules/, 
 				loader: "babel-loader" 
 			},
-			{
-				test: /.css$/,
-				use: [
-					{ 
-						loader: 'css-loader', 
-						options: { 
-							importLoaders: 1 
-						} 
-					}
-				]
-			}
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { 
+          	loader: 'postcss-loader',
+          	options: {
+          		indent: 'postcss',
+          		plugins: [
+          			require('tailwindcss'),
+          			require('autoprefixer')
+          		]
+          	}
+          }
+        ]
+      },
+			// {
+			// 	test: /\.css$/,
+			// 	use: [
+			// 		{ 
+			// 			loader: 'css-loader', 
+			// 			options: { 
+			// 				importLoaders: 1 
+			// 			} 
+			// 		}
+			// 	]
+			// }
 	  ]
 	},
 	plugins: [ 
+		new MiniCssExtractPlugin({
+      filename: 'public/css/style.css'
+    }),
 	]
 }
