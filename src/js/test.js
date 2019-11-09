@@ -9,33 +9,21 @@ import OSM from 'ol/source/OSM';
 import Popup from 'ol-popup';
 import { transform } from 'ol/proj';
 
-// const locations = [
-//   {
-//     coord: [-75.16374, 39.95378],
-//     address: '1401 John F. Kennedy Blvd.',
-//     name:  "Municipal Services Building Plaza",
-//     docksAvailable:  16,
-//     bikesAvailable:  14
-//   },
-//   {
-//     coord: [-75.14403, 39.94733],
-//     address: '191 S. 2nd St.',
-//     name:  "Welcome Park, NPS",
-//     bikesAvailable:  7,
-//     docksAvailable:  6
-//   },
-//   {
-//     coord: [-75.20311, 39.9522],
-//     address: '246 S. 40th St.',
-//     name: '40th & Spruce',
-//     bikesAvailable:  4,
-//     docksAvailable:  12
-//   }
-// ]
+const philaBounds = {
+  minX: -8384524.877077205,
+  maxX: -8355485.252209761,
+  minY: 4842805.670883484,
+  maxY: 4884589.480190991
+}
+
+const mapBounds = [philaBounds.minX, philaBounds.minY, philaBounds.maxX, philaBounds.maxY]
+
+console.log(fromLonLat([-75.4093, 39.9696]))
 
 const view = new View({
   center: fromLonLat([-75.16267, 39.95238]),
-  zoom: 12
+  zoom: 14,
+  extent: mapBounds
 })
 
 const map = new Map({
@@ -75,15 +63,12 @@ fetch('https://dkw6qugbfeznv.cloudfront.net/')
       element.addEventListener('click', () => {
         map.set('view', new View({
           center: fromLonLat([location.geometry.coordinates[0], location.geometry.coordinates[1]]),
-          zoom: 17
+          zoom: 18,
+          extent: mapBounds
         }))
       })
     })
   })
-
-document.querySelector('#setCenter').addEventListener('click', () => {
-  view.set('center', fromLonLat([-75.15665, 39.98435]))
-})
 
 // Don't render the popups for now:
 
