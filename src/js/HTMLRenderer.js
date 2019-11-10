@@ -28,7 +28,6 @@ export default class HTMLRenderer {
 			this.createParagraph(`${location.properties.docksAvailable} Docks Available`, classes.paragraph)
 		]
 		elementChildren.forEach(child => element.appendChild(child))
-
 		element.addEventListener('click', () => {
       this.map.set('view', new View({
         center: fromLonLat([location.geometry.coordinates[0], location.geometry.coordinates[1]]),

@@ -44,12 +44,12 @@ fetch('https://dkw6qugbfeznv.cloudfront.net/')
       map.addOverlay(marker);
       locations.push(location)
 
+      const sidebar = document.getElementById('sidebar')
       const stationInformation = renderer.createStationInformationDiv(location, {
         div: ['px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
         title: ['text-2xl', 'font-bold'],
         paragraph: ['text-lg']
       })
-      const sidebar = document.getElementById('sidebar')
       sidebar.appendChild(stationInformation)
     })
   })
