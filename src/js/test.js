@@ -9,14 +9,8 @@ import OSM from 'ol/source/OSM';
 import Popup from 'ol-popup';
 import { transform } from 'ol/proj';
 
-const philaBounds = {
-  minX: -8384524.877077205,
-  maxX: -8355485.252209761,
-  minY: 4842805.670883484,
-  maxY: 4884589.480190991
-}
-
-const mapBounds = [philaBounds.minX, philaBounds.minY, philaBounds.maxX, philaBounds.maxY]
+import HTMLRenderer from './HTMLRenderer'
+import {mapBounds} from './Philadelphia'
 
 const view = new View({
   center: fromLonLat([-75.16267, 39.95238]),
@@ -34,6 +28,7 @@ const map = new Map({
   view
 });
 let locations = []
+const renderer = new HTMLRenderer(map)
 fetch('https://dkw6qugbfeznv.cloudfront.net/')
   .then(response => response.json())
   .then(results => {
@@ -49,26 +44,16 @@ fetch('https://dkw6qugbfeznv.cloudfront.net/')
       map.addOverlay(marker);
       locations.push(location)
 
-      let element = document.createElement('div')
-      element.classList.add('px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer')
-      let title = document.createElement('div')
-      let titleText = document.createTextNode(location.properties.name)
-      title.classList.add('text-2xl', 'font-bold')
-      title.appendChild(titleText)
-      element.appendChild(title)
-      const sidebar = document.getElementById('sidebar')
-      sidebar.appendChild(element)
-      element.addEventListener('click', () => {
-        map.set('view', new View({
-          center: fromLonLat([location.geometry.coordinates[0], location.geometry.coordinates[1]]),
-          zoom: 18,
-          extent: mapBounds
-        }))
+      const stationInformation = renderer.createStationInformationDiv(location, {
+        div: ['px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
+        title: ['text-2xl', 'font-bold'],
+        paragraph: ['text-lg']
       })
+      const sidebar = document.getElementById('sidebar')
+      sidebar.appendChild(stationInformation)
     })
   })
 
-// Don't render the popups for now:
 
 // locations.forEach(location => {
 //   console.log(location)
