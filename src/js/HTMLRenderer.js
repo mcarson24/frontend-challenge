@@ -1,4 +1,3 @@
-import View from 'ol/View'
 import {fromLonLat} from 'ol/proj'
 
 export default class HTMLRenderer {
@@ -15,7 +14,7 @@ export default class HTMLRenderer {
 		return paragraphElement
 	}
 
-	createStationInformationDiv(station, classes = {}) {
+	createStationInfoDiv(station, classes = {}) {
 		const element = document.createElement('div')
 
 		element.classList.add(...classes.div)
