@@ -96,3 +96,26 @@ map.on('click', function(evt) {
 
 map.addOverlay(popup);
 
+// locations.forEach(location => {
+//   console.log(location)
+//   const markerElement = document.createElement('div')
+//   var marker = new Overlay({
+//     position: fromLonLat(location.coord),
+//     positioning: 'top-left',
+//     element: markerElement,
+//     stopEvent: false,
+//     className: 'marker'
+//   });
+//   map.addOverlay(marker);
+
+//   var popup = new Popup();
+//   map.addOverlay(popup);
+//   const content = `
+//     <h5>${location.name}</h5>
+//     <span class="italics">${location.address}</span>
+//     <span>Bikes Available: ${location.bikesAvailable}</span>
+//     <span>Docks Available: ${location.docksAvailable}</span>
+//   `
+//   popup.show(fromLonLat(location.coord), content);
+// })
+
