@@ -8,6 +8,12 @@ body {
 
 /** Map assets */
 
+.ol-zoom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 .ol-zoom-in,
 .ol-zoom-out {
   background-color: #553c9a;
@@ -22,7 +28,7 @@ body {
   display: none;
 }
 
-.container {
+.map-container {
   height: 75%;
 }
 
