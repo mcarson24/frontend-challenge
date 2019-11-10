@@ -1,6 +1,5 @@
 import View from 'ol/View'
 import {fromLonLat} from 'ol/proj'
-import {mapBounds} from './Philadelphia'
 
 export default class HTMLRenderer {
 	constructor(map) {
