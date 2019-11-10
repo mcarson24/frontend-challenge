@@ -18,8 +18,6 @@ const philaBounds = {
 
 const mapBounds = [philaBounds.minX, philaBounds.minY, philaBounds.maxX, philaBounds.maxY]
 
-console.log(fromLonLat([-75.4093, 39.9696]))
-
 const view = new View({
   center: fromLonLat([-75.16267, 39.95238]),
   zoom: 14,
@@ -52,7 +50,7 @@ fetch('https://dkw6qugbfeznv.cloudfront.net/')
       locations.push(location)
 
       let element = document.createElement('div')
-      element.classList.add('px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100')
+      element.classList.add('px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer')
       let title = document.createElement('div')
       let titleText = document.createTextNode(location.properties.name)
       title.classList.add('text-2xl', 'font-bold')
