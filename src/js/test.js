@@ -7,7 +7,24 @@ import OSM from 'ol/source/OSM';
 import Popup from 'ol-popup';
 import HTMLRenderer from './HTMLRenderer'
 import Station from './Station'
-import {mapBounds} from './Philadelphia'
+import {center, boundaries} from './Philadelphia'
+import debounce from 'lodash'
+
+const haversine = require('haversine-distance')
+
+const addressInput = document.querySelector('#address')
+addressInput.addEventListener('keydown', ({key, target}) => {
+  if (key == 'Enter') {
+    const address = target.value
+  }
+})
+
+// Ordering by closest to City Hall:
+// const orderedStations = results.features.sort((a, b) => {
+//   return haversine({ lat: 39.95238, lon: -75.16267 }, { lat: a.geometry.coordinates[1], lon: a.geometry.coordinates[0]}) > 
+//          haversine({ lat: 39.95238, lon: -75.16267 }, { lat: b.geometry.coordinates[1], lon: b.geometry.coordinates[0]})
+// })
+// console.log(orderedStations)
 
 document.addEventListener('DOMContentLoaded', () => {
   const map = new Map({
@@ -18,17 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     target: 'map',
     view: new View({
-      center: fromLonLat([-75.16267, 39.95238]),
+      center: fromLonLat(center),
       zoom: 14,
-      extent: mapBounds
+      extent: boundaries
     })
   });
+
+  const renderer = new HTMLRenderer(map)
+  const sidebar = document.getElementById('sidebar')
 
   fetch('https://dkw6qugbfeznv.cloudfront.net/')
     .then(response => response.json())
     .then(results => {
-      const renderer = new HTMLRenderer(map)
-      const sidebar = document.getElementById('sidebar')
       results.features.forEach(location => {
         const station = new Station(location)
         sidebar.appendChild(renderer.createStationInfoDiv(station, {
@@ -46,3 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     })
 })
+
+
+
+
