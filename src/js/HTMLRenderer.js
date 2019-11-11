@@ -1,5 +1,11 @@
 import {fromLonLat} from 'ol/proj'
 
+const classes = {
+	div: ['px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
+	title: ['text-xl', 'font-bold'],
+	paragraph: ['text-base']	
+}
+
 export default class HTMLRenderer {
 	constructor(map) {
 		this.map = map
@@ -14,7 +20,7 @@ export default class HTMLRenderer {
 		return paragraphElement
 	}
 
-	createStationInfoDiv(station, classes = {}) {
+	createStationInfoDiv(station) {
 		const element = document.createElement('div')
 
 		element.classList.add(...classes.div)

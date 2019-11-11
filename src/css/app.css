@@ -117,11 +117,8 @@ body {
 .marker {
   width: 25px;
   height: 34px;
-  /*border: 1px solid #088;*/
   border-radius: 10px;
-  /*background-color: #0FF;*/
   background-color: transparent;
-  /*opacity: 0.5;*/
   z-index: 9999;
   background-repeat: no-repeat;
 }
@@ -138,9 +135,8 @@ body {
   background-image: url('/images/station_healthy.png');
 }
 
-.input {
-  background-image: url('/images/pin.png'); 
-
+.user {
+  background-image: url('/images/user.png'); 
 }
 
 .popover-content {
