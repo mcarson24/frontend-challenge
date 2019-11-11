@@ -31,15 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${address},+Philadelphia,+PA`)
         .then(response => response.json())
         .then(({results}) => {
+          indegoMap.reset()
           indegoMap.removeAllMarkers()
           const location = { latitude: results[0].location.lat, longitude: results[0].location.lng }
           indegoMap.addUserMarker(location)
           indegoMap.moveTo(location)
           // Clear sidebar of previous stations
           sidebar.innerHTML = ''
-          console.log(getEmptyStationsOnly)
+          
           if (getEmptyStationsOnly) {
-            console.log('hello')
             indegoMap.getEmptyStationsOnly()
           }
 
@@ -51,6 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar.appendChild(renderer.createStationInfoDiv(station))
             indegoMap.addNewMarker(station.coordinates, station.status)
           })
+          if (indegoMap.noMoreStationsToDisplay) {
+            moreButton.classList.add('hidden')
+          } else {
+            moreButton.classList.remove('hidden')
+          }
         })    
     }
   })
@@ -60,6 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.appendChild(renderer.createStationInfoDiv(station))
       indegoMap.addNewMarker(station.coordinates, station.status)
     })
+    if (indegoMap.noMoreStationsToDisplay) {
+      moreButton.classList.add('hidden')
+    } else {
+      moreButton.classList.remove('hidden')
+    }
   })
 
   emptyCheckbox.addEventListener('change', event => {

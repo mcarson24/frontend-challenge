@@ -28,6 +28,10 @@ export default class IndegoMap {
 		this.nextStationToShow = 0
 	}
 
+	get noMoreStationsToDisplay() {
+		return this.nextStationToShow >= this.orderedStations.length
+	}
+
 	addNewMarker(coordinates, markerType) {
 		const newMarker = new Overlay({
       position: fromLonLat([coordinates.longitude, coordinates.latitude]),
@@ -93,5 +97,10 @@ export default class IndegoMap {
 	removeAllMarkers() {
 		this.currentMarkers.forEach(marker => this.removeMarker(marker))
 		this.currentMarkers = []
+	}
+
+	reset() {
+		this.orderedStations = this.stations
+		this.nextStationToShow = 0
 	}
 }
