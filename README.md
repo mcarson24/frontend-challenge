@@ -10,9 +10,9 @@ Create a single-page website/web application that displays bike share and weathe
 ## Requirements
 
 The app:
-* Asks the user for an address (you may use an input field)
-* Displays the location of at least three nearby bike stations on a map (you may integrate Google Maps, Open Street Map, or another tool of your choice)
-* Visually indicates the number of open docks and available bikes at each bike station
+* Asks the user for an address (you may use an input field) -- DONE
+* Displays the location of at least three nearby bike stations on a map (you may integrate Google Maps, Open Street Map, or another tool of your choice) -- DONE
+* Visually indicates the number of open docks and available bikes at each bike station -- DONE
 * Visually indicates the weather, and
 * Displays a warning if the weather seems dangerous.
 
@@ -44,8 +44,8 @@ Fork this project on github. When you're finished, send us the URL of your publi
 
 * Host it:
   * Make your app available on a server that we can communicate with from the office, not just running it locally. Although this is not a system administration job, we're interested in seeing that you are comfortable with the fundamentals of making something live on a webserver. (Hint: Heroku, Now, Digital Ocean and Linode are all options to consider.)
-* Ask the user whether they are looking for a bike, or a place to park one.
-* Use color or some other means to emphasize when there are plenty of bikes/racks, or very few.
+* Ask the user whether they are looking for a bike, or a place to park one. -- DONE
+* Use color or some other means to emphasize when there are plenty of bikes/racks, or very few. --DONE
 * Update in real time.
 * Geolocation. (Hint: you must use https on your server, which takes some doing.)
 * Use Vue or React, as a followup to your vanilla JS / jQuery project. If you choose to, please do this in a separate git branch, after you complete it with vanilla JS and jQuery. It's important to us to see how you'd structure the project without build tools that typically accompany such frameworks.
