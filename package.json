@@ -29,6 +29,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "dotenv-config": "^0.1.1",
     "haversine-distance": "^1.1.6",
     "ol": "^6.1.1",
     "postcss": "^7.0.21",

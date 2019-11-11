@@ -138,6 +138,11 @@ body {
   background-image: url('/images/station_healthy.png');
 }
 
+.input {
+  background-image: url('/images/pin.png'); 
+
+}
+
 .popover-content {
   min-width: 180px;
   padding: 5px 14px;
