@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const moreButton    = document.querySelector('#more')
   const emptyCheckbox = document.querySelector('#empty')
   const fullCheckbox  = document.querySelector('#full')
-
+  fullCheckbox.checked = false
+  emptyCheckbox.checked = false
+  
   let getEmptyStationsOnly = false
   let getFullStationsOnly = false
 

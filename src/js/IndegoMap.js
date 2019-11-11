@@ -80,13 +80,13 @@ export default class IndegoMap {
 
 	getEmptyStationsOnly() {
 		this.orderedStations = this.orderedStations.filter(station => {
-      return station.bikesAvailable == 0
+      return station.bikesAvailable > 0
     })
 	}
 
 	getFullStationsOnly() {
 		this.orderedStations = this.orderedStations.filter(station => {
-      return station.docksAvailable == 0
+      return station.docksAvailable > 0
     })
 	}
 
