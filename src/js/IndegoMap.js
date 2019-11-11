@@ -74,6 +74,18 @@ export default class IndegoMap {
 		return stations
 	}
 
+	getEmptyStationsOnly() {
+		this.orderedStations = this.orderedStations.filter(station => {
+      return station.bikesAvailable == 0
+    })
+	}
+
+	getFullStationsOnly() {
+		this.orderedStations = this.orderedStations.filter(station => {
+      return station.docksAvailable == 0
+    })
+	}
+
 	removeMarker(marker) {
 		this.map.removeOverlay(marker)
 	}

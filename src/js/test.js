@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const addressInput  = document.querySelector('#address')
   const sidebar       = document.querySelector('#sidebar_content')
   const moreButton    = document.querySelector('#more')
+  const emptyCheckbox = document.querySelector('#empty')
+  const fullCheckbox  = document.querySelector('#full')
+
+  let getEmptyStationsOnly = false
+  let getFullStationsOnly = false
 
   fetch('https://dkw6qugbfeznv.cloudfront.net/')
     .then(response => response.json())
@@ -32,6 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
           indegoMap.moveTo(location)
           // Clear sidebar of previous stations
           sidebar.innerHTML = ''
+          console.log(getEmptyStationsOnly)
+          if (getEmptyStationsOnly) {
+            console.log('hello')
+            indegoMap.getEmptyStationsOnly()
+          }
+
+          if (getFullStationsOnly) {
+            indegoMap.getFullStationsOnly()
+          }
+
           indegoMap.paginatedStations().forEach(station => {
             sidebar.appendChild(renderer.createStationInfoDiv(station))
             indegoMap.addNewMarker(station.coordinates, station.status)
@@ -45,5 +60,25 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.appendChild(renderer.createStationInfoDiv(station))
       indegoMap.addNewMarker(station.coordinates, station.status)
     })
+  })
+
+  emptyCheckbox.addEventListener('change', event => {
+    if (event.target.checked) {
+      fullCheckbox.checked = false
+      fullCheckbox.disabled = true
+    } else {
+      fullCheckbox.disabled = false
+    }
+    getEmptyStationsOnly = !getEmptyStationsOnly
+  })
+
+  fullCheckbox.addEventListener('change', event => {
+    if (event.target.checked) {
+      emptyCheckbox.checked = false
+      emptyCheckbox.disabled = true
+    } else {
+      emptyCheckbox.disabled = false
+    }
+    getFullStationsOnly = !getFullStationsOnly
   })
 })
