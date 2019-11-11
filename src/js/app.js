@@ -1,121 +1,95 @@
-import 'ol/ol.css'
-import 'ol-popup/src/ol-popup.css';
+import Station from './Station'
+import IndegoMap from './IndegoMap'
+import HTMLRenderer from './HTMLRenderer'
+import {center, boundaries} from './Philadelphia'
 
-import $ from 'jquery'
-import {Map, View} from 'ol'
-import {fromLonLat, toLonLat, transform} from 'ol/proj'
-import Popup from 'ol-popup';
-import {toStringHDMS} from 'ol/coordinate'
-import {Vector} from 'ol/source'
-import Overlay from 'ol/Overlay'
-import VectorLayer from 'ol/layer/Vector'
-import Feature from 'ol/Feature'
-import Point from 'ol/geom/Point'
-import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
-import Popper from 'popper.js'
+document.addEventListener('DOMContentLoaded', () => {
+  const indegoMap     = new IndegoMap(center, boundaries)
+  const renderer      = new HTMLRenderer(indegoMap.map)
+  const addressInput  = document.querySelector('#address')
+  const sidebar       = document.querySelector('#sidebar_content')
+  const moreButton    = document.querySelector('#more')
+  const emptyCheckbox = document.querySelector('#empty')
+  const fullCheckbox  = document.querySelector('#full')
 
-const coord = fromLonLat([-75.16394, 39.95230])
-const coordNY = fromLonLat([-74.006,40.7127])
+  let getEmptyStationsOnly = false
+  let getFullStationsOnly = false
 
-const marker = new Feature({
-  geometry: new Point(
-    coordNY
-  ), 
-})
-marker.setProperties({
-	style: 'hello'
-});
-
-const vectorSource = new Vector({
-  features: [marker]
-});
-
-const markerVectorLayer = new VectorLayer({
-  source: vectorSource,
-});
-
-
-const map = new Map({
-  target: 'map',
-  layers: [
-    new TileLayer({
-      source: new OSM()
+  fetch('https://dkw6qugbfeznv.cloudfront.net/')
+    .then(response => response.json())
+    .then(results => {
+      results.features.forEach(station => indegoMap.stations.push(new Station(station)))
+      indegoMap.stations.forEach(station => {
+        sidebar.appendChild(renderer.createStationInfoDiv(station))
+        indegoMap.addNewMarker(station.coordinates, station.status)
+      })
+      moreButton.classList.add('hidden')
     })
-  ],
-  view: new View({
-		center: coord,
-		zoom: 5
-	})
-});
-map.addLayer(markerVectorLayer);
-const viennaPos = fromLonLat([16.3725, 48.208889]);
-var viennaMarker = new Overlay({
-  position: viennaPos,
-  positioning: 'center-center',
-  element: document.getElementById('marker'),
-  stopEvent: false
-});
-map.addOverlay(viennaMarker);
-const vienna = new Overlay({
-  position: viennaPos,
-  // element: document.getElementById('vienna')
-});
-map.addOverlay(vienna);
 
-var popup = new Popup();
+  addressInput.addEventListener('keydown', ({key, target}) => {
+    if (key == 'Enter') {
+      const address = target.value.replace(/\s/g, '+')
+      fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${address},+Philadelphia,+PA`)
+        .then(response => response.json())
+        .then(({results}) => {
+          indegoMap.reset()
+          indegoMap.removeAllMarkers()
+          const location = { latitude: results[0].location.lat, longitude: results[0].location.lng }
+          indegoMap.addUserMarker(location)
+          indegoMap.moveTo(location)
+          // Clear sidebar of previous stations
+          sidebar.innerHTML = ''
+          
+          if (getEmptyStationsOnly) {
+            indegoMap.getEmptyStationsOnly()
+          }
 
-let showingPopUP = false
+          if (getFullStationsOnly) {
+            indegoMap.getFullStationsOnly()
+          }
 
-// map.on('singleclick', function(evt) {
-// 	if (showingPopUP) {
-// 		popup.hide()
-// 		showingPopUP = false
-// 	} else {
-//     var prettyCoord = toStringHDMS(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'), 2);
-//     showingPopUP = true
-//     popup.show(coordNY, '<div class="popup"><h2>New York City Hall</h2><p>Is here</p></div>');
-// 	}
-// });
+          indegoMap.paginatedStations().forEach(station => {
+            sidebar.appendChild(renderer.createStationInfoDiv(station))
+            indegoMap.addNewMarker(station.coordinates, station.status)
+          })
+          if (indegoMap.noMoreStationsToDisplay) {
+            moreButton.classList.add('hidden')
+          } else {
+            moreButton.classList.remove('hidden')
+          }
+        })    
+    }
+  })
 
-map.on('click', function(evt) {
-  var element = popup.getElement();
-  var coordinate = evt.coordinate;
-  var hdms = toStringHDMS(toLonLat(coordinate));
+  moreButton.addEventListener('click', () => {
+    indegoMap.paginatedStations().forEach(station => {
+      sidebar.appendChild(renderer.createStationInfoDiv(station))
+      indegoMap.addNewMarker(station.coordinates, station.status)
+    })
+    if (indegoMap.noMoreStationsToDisplay) {
+      moreButton.classList.add('hidden')
+    } else {
+      moreButton.classList.remove('hidden')
+    }
+  })
 
-  $(element).popover('destroy');
-  popup.setPosition(coordinate);
-  $(element).popover({
-    placement: 'top',
-    animation: false,
-    html: true,
-    content: '<p>The location you clicked was:</p><code>' + hdms + '</code>'
-  });
-  $(element).popover('show');
-});
+  emptyCheckbox.addEventListener('change', event => {
+    if (event.target.checked) {
+      fullCheckbox.checked = false
+      fullCheckbox.disabled = true
+    } else {
+      fullCheckbox.disabled = false
+    }
+    getEmptyStationsOnly = !getEmptyStationsOnly
+  })
 
-map.addOverlay(popup);
-
-// locations.forEach(location => {
-//   console.log(location)
-//   const markerElement = document.createElement('div')
-//   var marker = new Overlay({
-//     position: fromLonLat(location.coord),
-//     positioning: 'top-left',
-//     element: markerElement,
-//     stopEvent: false,
-//     className: 'marker'
-//   });
-//   map.addOverlay(marker);
-
-//   var popup = new Popup();
-//   map.addOverlay(popup);
-//   const content = `
-//     <h5>${location.name}</h5>
-//     <span class="italics">${location.address}</span>
-//     <span>Bikes Available: ${location.bikesAvailable}</span>
-//     <span>Docks Available: ${location.docksAvailable}</span>
-//   `
-//   popup.show(fromLonLat(location.coord), content);
-// })
-
+  fullCheckbox.addEventListener('change', event => {
+    if (event.target.checked) {
+      emptyCheckbox.checked = false
+      emptyCheckbox.disabled = true
+    } else {
+      emptyCheckbox.disabled = false
+    }
+    getFullStationsOnly = !getFullStationsOnly
+  })
+})

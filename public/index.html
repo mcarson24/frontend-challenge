@@ -3,54 +3,37 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>P'unk Avenue Frontend Challenge</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-		<style>
-	      #map {
-	        width: 800px;
-	        height: 500px;
-	      }
-	      .ol-attribution {
-	      	display: none;
-	      }
-	      .popup {
-	      	background-color: #FFF;
-	      	padding: 10px;
-	      	height: 125px;
-	      	width: 125px;
-	      	border-radius: 15px;
-	      	box-shadow: 1px 1px 1px rgba(0, 0, 0, .25)
-	      }
-	      .popup h2 {
-	      	margin: 0;
-	      }
-	      #marker {
-	        width: 20px;
-	        height: 20px;
-	        border: 1px solid #088;
-	        border-radius: 10px;
-	        background-color: #0FF;
-	        opacity: 0.5;
-	      }
-	      #vienna {
-	        text-decoration: none;
-	        color: white;
-	        font-size: 11pt;
-	        font-weight: bold;
-	        text-shadow: black 0.1em 0.1em 0.2em;
-	      }
-	      .none {
-	      	display: none;
-	      }
-	    </style>
+		<title>P'unk Ave: Frontend Challenge</title>
+	    <link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<div id="map"></div>
-		<div class="none">
-			<div id="marker" title="Marker"></div>
+		<div class="h-screen">
+			<div class="header flex flex-col justify-center items-center bg-purple-900">
+				<div class="w-1/2 flex flex-col items-center">
+					<h1 class="mb-4 text-5xl text-gray-100">Find an Indego Station</h1>
+					<input id="address" class="mb-4 px-2 w-1/2 h-12 rounded" type="text" placeholder="1234 Market St.">
+					<div class="w-1/2 flex justify-between text-gray-100">
+						<div class="flex flex-col items-center">
+							<input type="checkbox" id="empty" class="h-5 w-5">
+							<label for="empty" class="text-center">Empty Stations Only</label>
+						</div>
+						<div class="flex flex-col items-center">
+							<input type="checkbox" id="full" class="h-5 w-5">
+							<label for="full" class="text-center">Full Stations Only</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="map-container px-0 flex">
+				<div id="sidebar" class="sidebar w-1/4 overflow-scroll">
+					<div id="sidebar_content"></div>
+					<div class="flex justify-end py-3">
+						<button id="more" class="mr-8 underline text-purple-900">More</button>
+					</div>
+				</div>
+				<div id="map" class="map w-3/4"></div>
+			</div>
 		</div>
-		<script src="js/app.js"></script>
+	    <script src="js/app.js"></script>
 	</body>
 </html>

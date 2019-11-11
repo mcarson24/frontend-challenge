@@ -5,7 +5,7 @@ const MiniCssExtractPlugin 	= require('mini-css-extract-plugin');
 module.exports = {
 	entry: {
 		app: [
-			'./src/js/test.js',
+			'./src/js/app.js',
 			'./src/css/style.css'
 		]
 	},
@@ -27,33 +27,22 @@ module.exports = {
 	    },
       	{
         test: /\.css$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          { 
-          	loader: 'postcss-loader',
-          	options: {
-          		indent: 'postcss',
-          		plugins: [
-          			require('tailwindcss'),
-          			require('autoprefixer')
-          		]
-          	}
-          }
-        ]
-      },
-			// {
-			// 	test: /\.css$/,
-			// 	use: [
-			// 		{ 
-			// 			loader: 'css-loader', 
-			// 			options: { 
-			// 				importLoaders: 1 
-			// 			} 
-			// 		}
-			// 	]
-			// }
+	        use: [
+	          'style-loader',
+	          MiniCssExtractPlugin.loader,
+	          { loader: 'css-loader', options: { importLoaders: 1 } },
+	          { 
+	          	loader: 'postcss-loader',
+	          	options: {
+	          		indent: 'postcss',
+	          		plugins: [
+	          			require('tailwindcss'),
+	          			require('autoprefixer')
+	          		]
+	          	}
+	          }
+	        ]
+      	}
 	  ]
 	},
 	plugins: [ 
