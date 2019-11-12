@@ -8,6 +8,11 @@ export default class Station {
 		this.docksAvailable = station.properties.docksAvailable
 		this.name = station.properties.name
 		this.address = station.properties.addressStreet
+		this.bikeTypes = {
+			classic: station.properties.classicBikesAvailable,
+			smart: station.properties.smartBikesAvailable,
+			electric: station.properties.electricBikesAvailable
+		}
 	}
 
 	get status() {
