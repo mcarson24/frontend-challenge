@@ -28,13 +28,22 @@
 				</div>
 			</div>
 			<div class="map-container px-0 flex">
-				<div id="sidebar" class="sidebar w-1/4 overflow-scroll">
+				<div id="sidebar" class="sidebar w-1/4 overflow-scroll z-40 shadow-2xl">
 					<div id="sidebar_content"></div>
 					<div class="flex justify-end py-3">
 						<button id="more" class="mr-8 underline text-purple-900">More</button>
 					</div>
 				</div>
 				<div id="map" class="map w-3/4"></div>
+				<div id="weather" class="py-3 px-4 rounded-lg shadow-lg opacity-50 hover:opacity-100" style="width: 250px; background-color: pink; position: absolute; bottom: 15px; right: 15px">
+					<div class="flex">
+						<img id="weatherIcon" src="">
+						<div id="details" class="flex flex-col justify-center">
+							<div id="temp" class="flex">&deg;</div>
+						</div>
+					</div>
+					<div id="message" class="text-center"></div>
+				</div>
 			</div>
 		</div>
 	    <script src="js/app.js"></script>

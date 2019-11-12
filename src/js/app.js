@@ -2,23 +2,40 @@ import Station from './Station'
 import IndegoMap from './IndegoMap'
 import HTMLRenderer from './HTMLRenderer'
 import {center, boundaries} from './Philadelphia'
+import Weather from './Weather'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const indegoMap     = new IndegoMap(center, boundaries)
-  const renderer      = new HTMLRenderer(indegoMap.map)
-  const addressInput  = document.querySelector('#address')
-  const sidebar       = document.querySelector('#sidebar_content')
-  const moreButton    = document.querySelector('#more')
-  const emptyCheckbox = document.querySelector('#empty')
-  const fullCheckbox  = document.querySelector('#full')
-  
+  const indegoMap           = new IndegoMap(center, boundaries)
+  const renderer            = new HTMLRenderer(indegoMap.map)
+  const addressInput        = document.querySelector('#address')
+  const sidebar             = document.querySelector('#sidebar_content')
+  const showMoreButton      = document.querySelector('#more')
+  const emptyCheckbox       = document.querySelector('#empty')
+  const fullCheckbox        = document.querySelector('#full')
+  const weatherIceon        = document.querySelector('#weatherIcon')
+  const weatherDetails      = document.querySelector('#details')
+  const weatherTemperature  = document.querySelector('#temp')
+  const weatherMessage      = document.querySelector('#message')
+
   let getStationsWithAvailableBikes = false
   let getStationsWithAvailableDocks = false
 
   fullCheckbox.checked = false
   emptyCheckbox.checked = false
 
+  // Get weather information from OpenWeatherMap
+  fetch('https://api.openweathermap.org/data/2.5/weather?q=Philadelphia,PA,US&units=imperial&appid=280846fd1decf39edf467bfc652a7e92')
+    .then(response => response.json())
+    .then(({main, weather, wind}) => {
+      const weatherCenter = new Weather(main.temp, weather[0], wind)
+      weatherTemperature.appendChild(renderer.createParagraph(weatherCenter.temperature))
+      weatherDetails.appendChild(renderer.createParagraph(weather[0].main))
+      weatherIcon.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+      weatherMessage.innerHTML = weatherCenter.message
+    })
 
+  // Get bike share information from 'https://www.rideindego.com/stations/json/'
+  // Setup map markers and sidebar information for each station
   fetch('https://dkw6qugbfeznv.cloudfront.net/')
     .then(response => response.json())
     .then(results => {
@@ -27,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.appendChild(renderer.createStationInfoDiv(station))
         indegoMap.addNewMarker(station.coordinates, station.status)
       })
-      moreButton.classList.add('hidden')
+      showMoreButton.classList.add('hidden')
     })
 
   addressInput.addEventListener('keydown', ({key, target}) => {
@@ -57,23 +74,23 @@ document.addEventListener('DOMContentLoaded', () => {
             indegoMap.addNewMarker(station.coordinates, station.status)
           })
           if (indegoMap.noMoreStationsToDisplay) {
-            moreButton.classList.add('hidden')
+            showMoreButton.classList.add('hidden')
           } else {
-            moreButton.classList.remove('hidden')
+            showMoreButton.classList.remove('hidden')
           }
         })    
     }
   })
 
-  moreButton.addEventListener('click', () => {
+  showMoreButton.addEventListener('click', () => {
     indegoMap.paginatedStations().forEach(station => {
       sidebar.appendChild(renderer.createStationInfoDiv(station))
       indegoMap.addNewMarker(station.coordinates, station.status)
     })
     if (indegoMap.noMoreStationsToDisplay) {
-      moreButton.classList.add('hidden')
+      showMoreButton.classList.add('hidden')
     } else {
-      moreButton.classList.remove('hidden')
+      showMoreButton.classList.remove('hidden')
     }
   })
 
