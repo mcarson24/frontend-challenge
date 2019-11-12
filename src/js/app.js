@@ -3,18 +3,32 @@ import IndegoMap from './IndegoMap'
 import HTMLRenderer from './HTMLRenderer'
 import {center, boundaries} from './Philadelphia'
 import Weather from './Weather'
+
 document.addEventListener('DOMContentLoaded', () => {
-  const indegoMap     = new IndegoMap(center, boundaries)
-  const renderer      = new HTMLRenderer(indegoMap.map)
-  const addressInput  = document.querySelector('#address')
-  const sidebar       = document.querySelector('#sidebar_content')
-  const moreButton    = document.querySelector('#more')
-  const emptyCheckbox = document.querySelector('#empty')
-  const fullCheckbox  = document.querySelector('#full')
+  const indegoMap           = new IndegoMap(center, boundaries)
+  const renderer            = new HTMLRenderer(indegoMap.map)
+  const addressInput        = document.querySelector('#address')
+  const sidebar             = document.querySelector('#sidebar_content')
+  const moreButton          = document.querySelector('#more')
+  const emptyCheckbox       = document.querySelector('#empty')
+  const fullCheckbox        = document.querySelector('#full')
+  const weatherIceon        = document.querySelector('#weatherIcon')
+  const weatherDetails      = document.querySelector('#details')
+  const weatherTemperature  = document.querySelector('#temp')
+  const weatherMessage      = document.querySelector('#message')
 
   let getStationsWithAvailableBikes = false
   let getStationsWithAvailableDocks = false
-  const weather = new Weather
+  const weatherCenter = new Weather
+  fetch('https://api.openweathermap.org/data/2.5/weather?q=Philadelphia,PA,US&units=imperial&appid=280846fd1decf39edf467bfc652a7e92')
+    .then(response => response.json())
+    .then(({main, weather, wind}) => {
+      const weatherCenter = new Weather(main.temp, weather[0], wind)
+      weatherTemperature.prepend(renderer.createParagraph(weatherCenter.temperature))
+      weatherDetails.appendChild(renderer.createParagraph(weather[0].main))
+      weatherIcon.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+      weatherMessage.innerHTML = weatherCenter.message
+    })
   fullCheckbox.checked = false
   emptyCheckbox.checked = false
 
