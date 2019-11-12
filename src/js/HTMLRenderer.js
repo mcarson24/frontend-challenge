@@ -1,4 +1,6 @@
 import {fromLonLat} from 'ol/proj'
+import Popup from 'ol-popup'
+import pluralize from 'pluralize'
 
 const classes = {
 	div: ['px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
@@ -20,6 +22,21 @@ export default class HTMLRenderer {
 		return paragraphElement
 	}
 
+	createPopUpFor(station) {
+		const popup = document.createElement('div')
+		const heading = document.createElement('h2')
+		heading.appendChild(document.createTextNode('Available Bikes:'))
+		popup.appendChild(heading)
+		for (let type in station.bikeTypes) {
+			const paragraph = document.createElement('p')
+			const numberOfType = station.bikeTypes[type]
+			paragraph.appendChild(document.createTextNode(`${numberOfType} ${type} ${pluralize('bikes', numberOfType)} `))
+			popup.appendChild(paragraph)
+		}
+
+		return popup
+	}
+
 	createStationInfoDiv(station) {
 		const element = document.createElement('div')
 
@@ -37,7 +54,14 @@ export default class HTMLRenderer {
 				center: fromLonLat([station.coordinates.longitude, station.coordinates.latitude]),
 				zoom: 18
 			})
-    })
+			const popup = new Popup()
+
+			this.map.addOverlay(popup)
+			popup.show(
+				fromLonLat([station.coordinates.longitude, station.coordinates.latitude]), 
+				this.createPopUpFor(station)
+			);
+    	})
 		return element
 	}
 }
