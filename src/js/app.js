@@ -78,6 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   emptyCheckbox.addEventListener('change', event => {
+    let amountToShow = null
+    if (indegoMap.nextStationToShow > 0) {
+      amountToShow = indegoMap.nextStationToShow
+    } else {
+      amountToShow = 140
+    }
+    indegoMap.reset()
+    indegoMap.removeAllMarkers()
+    sidebar.innerHTML = ''
     if (event.target.checked) {
       fullCheckbox.checked = false
       fullCheckbox.disabled = true
@@ -85,15 +94,52 @@ document.addEventListener('DOMContentLoaded', () => {
       fullCheckbox.disabled = false
     }
     getStationsWithAvailableBikes = !getStationsWithAvailableBikes
+   
+    if (getStationsWithAvailableBikes) {
+      indegoMap.orderedStations = indegoMap.stations.filter(station => {
+        return station.hasAvailableBikes
+      })
+    }
+    indegoMap.paginatedStations(amountToShow).forEach(station => {
+      sidebar.appendChild(renderer.createStationInfoDiv(station))
+      indegoMap.addNewMarker(station.coordinates, station.status)
+    })
+
+    if (amountToShow == 0) {
+      moreButton.classList.add('hidden')
+    }
   })
 
   fullCheckbox.addEventListener('change', event => {
-    if (event.target.checked) {
-      emptyCheckbox.checked = false
-      emptyCheckbox.disabled = true
+    let amountToShow = null
+    if (indegoMap.nextStationToShow > 0) {
+      amountToShow = indegoMap.nextStationToShow
     } else {
-      emptyCheckbox.disabled = false
+      amountToShow = 140
+    }
+    indegoMap.reset()
+    indegoMap.removeAllMarkers()
+    sidebar.innerHTML = ''
+    if (event.target.checked) {
+      empty.checked = false
+      empty.disabled = true
+    } else {
+      empty.disabled = false
     }
     getStationsWithAvailableDocks = !getStationsWithAvailableDocks
+   
+    if (getStationsWithAvailableDocks) {
+      indegoMap.orderedStations = indegoMap.stations.filter(station => {
+        return station.hasAvailableDocks
+      })
+    }
+    indegoMap.paginatedStations(amountToShow).forEach(station => {
+      sidebar.appendChild(renderer.createStationInfoDiv(station))
+      indegoMap.addNewMarker(station.coordinates, station.status)
+    })
+
+    if (amountToShow == 0) {
+      moreButton.classList.add('hidden')
+    }
   })
 })

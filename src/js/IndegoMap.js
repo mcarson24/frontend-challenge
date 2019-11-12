@@ -80,14 +80,14 @@ export default class IndegoMap {
 
 	getStationsWithAvailableBikes() {
 		this.orderedStations = this.orderedStations.filter(station => {
-      return station.bikesAvailable > 0
-    })
+	      return station.bikesAvailable > 0
+	    })
 	}
 
 	getStationsWithAvailableDocks() {
 		this.orderedStations = this.orderedStations.filter(station => {
-      return station.docksAvailable > 0
-    })
+	      return station.docksAvailable > 0
+	    })
 	}
 
 	removeMarker(marker) {

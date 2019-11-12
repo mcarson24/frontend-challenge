@@ -15,4 +15,12 @@ export default class Station {
 		if (this.docksAvailable == 0) return 'full'
 		return 'healthy'
 	}
+
+	get hasAvailableBikes() {
+		return this.bikesAvailable > 0
+	}
+
+	get hasAvailableDocks() {
+		return this.docksAvailable > 0
+	}
 }
