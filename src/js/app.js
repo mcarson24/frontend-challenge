@@ -4,6 +4,8 @@ import HTMLRenderer from './HTMLRenderer'
 import {center, boundaries} from './Philadelphia'
 import Weather from './Weather'
 
+const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
+
 document.addEventListener('DOMContentLoaded', () => {
   const indegoMap           = new IndegoMap(center, boundaries)
   const renderer            = new HTMLRenderer(indegoMap.map)
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fullCheckbox.checked = false
   emptyCheckbox.checked = false
+  addressInput.value = ''
 
   // Get weather information from OpenWeatherMap
   fetch('https://api.openweathermap.org/data/2.5/weather?q=Philadelphia,PA,US&units=imperial&appid=280846fd1decf39edf467bfc652a7e92')
@@ -49,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   addressInput.addEventListener('keydown', ({key, target}) => {
     if (key == 'Enter') {
-      const address = target.value.replace(/\s/g, '+')
+      if (!target.value.trim()) target.value = DEFAULT_ADDRESS
+      const address = target.value.trim().replace(/\s/g, '+')
       fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${address},+Philadelphia,+PA`)
         .then(response => response.json())
         .then(({results}) => {
