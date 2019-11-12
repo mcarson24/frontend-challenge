@@ -2,7 +2,7 @@ import Station from './Station'
 import IndegoMap from './IndegoMap'
 import HTMLRenderer from './HTMLRenderer'
 import {center, boundaries} from './Philadelphia'
-
+import Weather from './Weather'
 document.addEventListener('DOMContentLoaded', () => {
   const indegoMap     = new IndegoMap(center, boundaries)
   const renderer      = new HTMLRenderer(indegoMap.map)
@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const moreButton    = document.querySelector('#more')
   const emptyCheckbox = document.querySelector('#empty')
   const fullCheckbox  = document.querySelector('#full')
-  
+
   let getStationsWithAvailableBikes = false
   let getStationsWithAvailableDocks = false
-
+  const weather = new Weather
   fullCheckbox.checked = false
   emptyCheckbox.checked = false
 
