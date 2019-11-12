@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const emptyCheckbox = document.querySelector('#empty')
   const fullCheckbox  = document.querySelector('#full')
   
-  let getEmptyStationsOnly = false
-  let getFullStationsOnly = false
+  let getStationsWithAvailableBikes = false
+  let getStationsWithAvailableDocks = false
 
   fullCheckbox.checked = false
   emptyCheckbox.checked = false
@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // Clear sidebar of previous stations
           sidebar.innerHTML = ''
           
-          if (getEmptyStationsOnly) {
-            indegoMap.getEmptyStationsOnly()
+          if (getStationsWithAvailableBikes) {
+            indegoMap.getStationsWithAvailableBikes()
           }
 
-          if (getFullStationsOnly) {
-            indegoMap.getFullStationsOnly()
+          if (getStationsWithAvailableDocks) {
+            indegoMap.getStationsWithAvailableDocks()
           }
 
           indegoMap.paginatedStations().forEach(station => {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       fullCheckbox.disabled = false
     }
-    getEmptyStationsOnly = !getEmptyStationsOnly
+    getStationsWithAvailableBikes = !getStationsWithAvailableBikes
   })
 
   fullCheckbox.addEventListener('change', event => {
@@ -94,6 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       emptyCheckbox.disabled = false
     }
-    getFullStationsOnly = !getFullStationsOnly
+    getStationsWithAvailableDocks = !getStationsWithAvailableDocks
   })
 })
