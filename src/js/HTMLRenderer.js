@@ -23,23 +23,25 @@ export default class HTMLRenderer {
 	}
 
 	createPopUpFor(station, popup) {
-		this.indegoMap.removeLastPopup()
 		const popupElement = document.createElement('div')
 		const heading = document.createElement('h2')
+		const availableDocksParagraph = document.createElement('p')
+		this.indegoMap.removeLastPopup()
+
 		heading.appendChild(document.createTextNode(`Station Information:`))
 		popupElement.appendChild(heading)
-		const availableDocksParagraph = document.createElement('p')
 		availableDocksParagraph.appendChild(document.createTextNode(`${station.docksAvailable} Open Docks`))
 		popupElement.appendChild(availableDocksParagraph)
 
 		for (let type in station.bikeTypes) {
 			const paragraph = document.createElement('p')
-			const numberOfType = station.bikeTypes[type]
-			paragraph.appendChild(document.createTextNode(`${numberOfType} ${type} ${pluralize('bikes', numberOfType)} `))
+			const numberOfBikesOfType = station.bikeTypes[type]
+			paragraph.appendChild(document.createTextNode(`${numberOfBikesOfType} ${type} ${pluralize('bikes', numberOfBikesOfType)} `))
 			popupElement.appendChild(paragraph)
 		}
 
 		this.indegoMap.currentPopup = popup
+		
 		return popupElement
 	}
 

@@ -119,7 +119,6 @@ body {
   height: 34px;
   border-radius: 10px;
   background-color: transparent;
-  z-index: 9999;
   background-repeat: no-repeat;
 }
 
@@ -139,15 +138,9 @@ body {
   background-image: url('/images/user.png'); 
 }
 
-.popover-content {
-  min-width: 180px;
-  padding: 5px 14px;
+.weather-widget {
+  width: 250px;  
+  bottom: 15px; 
+  right: 15px
 }
-.ol-popup-content {
-  display: flex;
-  flex-direction: column;
-}
-.italics {
-  font-style: italic;
-  font-size: 10px;
-}
+

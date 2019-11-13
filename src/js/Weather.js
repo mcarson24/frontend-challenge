@@ -25,8 +25,6 @@ export default class Weather {
 				return 'Visibility is down, be careful!'
 			case 'Thunderstorm':
 				return "It's dangerous out there. Bike with extreme caution."
-			default:
-				return 'Happy Biking!'
 		}		
 	}
 }

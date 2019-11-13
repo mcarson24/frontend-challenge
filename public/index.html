@@ -9,8 +9,8 @@
 	<body>
 		<div class="h-screen">
 			<div class="header flex flex-col justify-center items-center bg-purple-900">
-				<div class="w-1/2 flex flex-col items-center">
-					<h1 class="mb-4 text-5xl text-gray-100">Find an Indego Station</h1>
+				<div class="w-3/4 sm:w-3/5 flex flex-col items-center">
+					<h1 class="mb-4 text-4xl sm:text-5xl text-center text-gray-100">Find an Indego Station</h1>
 					<input id="address" class="mb-4 px-2 w-1/2 h-12 rounded" type="text" placeholder="1168 E. Passyunk Ave">
 					<div class="w-1/2 flex flex-col items-center text-gray-100">
 						<div>Stations with:</div>
@@ -35,14 +35,14 @@
 					</div>
 				</div>
 				<div id="map" class="map w-3/4"></div>
-				<div id="weather" class="py-3 px-4 rounded-lg shadow-lg opacity-50 hover:opacity-100" style="width: 250px; background-color: pink; position: absolute; bottom: 15px; right: 15px">
+				<div id="weather" class="weather-widget py-2 px-4 rounded-lg bg-gray-100 shadow-lg text-gray-700 absolute opacity-50 hover:opacity-100">
 					<div class="flex">
 						<img id="weatherIcon" src="">
 						<div id="details" class="flex flex-col justify-center">
-							<div id="temp" class="flex">&deg;</div>
+							<div id="temp" class="text-3xl flex">&deg;</div>
 						</div>
 					</div>
-					<div id="message" class="text-center"></div>
+					<div id="message" class="px-4 flex items-center"></div>
 				</div>
 			</div>
 		</div>
