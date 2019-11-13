@@ -34,12 +34,12 @@ export default class IndegoMap {
 	}
 
 	addNewMarker(coordinates, markerType) {
-		const newMarker = new Overlay({
-      position: fromLonLat([coordinates.longitude, coordinates.latitude]),
-      positioning: 'top-left',
-      element: document.createElement('div'),
-      stopEvent: false,
-      className: `marker ${markerType}`
+	const newMarker = new Overlay({
+    position: fromLonLat([coordinates.longitude, coordinates.latitude]),
+    positioning: 'top-center',
+    element: document.createElement('div'),
+    stopEvent: false,
+    className: `marker ${markerType}`
     })
     this.currentMarkers.push(newMarker)
     this.map.addOverlay(newMarker)
