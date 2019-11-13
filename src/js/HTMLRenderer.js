@@ -3,9 +3,9 @@ import Popup from 'ol-popup'
 import pluralize from 'pluralize'
 
 const classes = {
-	div: ['px-3', 'py-4', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
-	title: ['text-xl', 'font-bold'],
-	paragraph: ['text-base']	
+	div: ['px-3', 'py-4', 'w-full', 'border-b', 'border-gray-300', 'flex', 'flex-col', 'hover:bg-gray-100', 'hover:cursor-pointer'],
+	title: ['text-xl', 'font-bold', 'mx-auto', 'sm:m-0'],
+	paragraph: ['text-base', 'mx-auto', 'sm:m-0']	
 }
 
 export default class HTMLRenderer {
