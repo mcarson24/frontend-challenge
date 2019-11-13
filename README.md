@@ -13,8 +13,8 @@ The app:
 * Asks the user for an address (you may use an input field) -- DONE
 * Displays the location of at least three nearby bike stations on a map (you may integrate Google Maps, Open Street Map, or another tool of your choice) -- DONE
 * Visually indicates the number of open docks and available bikes at each bike station -- DONE
-* Visually indicates the weather, and
-* Displays a warning if the weather seems dangerous.
+* Visually indicates the weather, and -- DONE
+* Displays a warning if the weather seems dangerous. -- DONE
 
 ## APIs
 [Indego](https://www.rideindego.com) is Philadelphia's bike-sharing program, with many bike stations in the city.
