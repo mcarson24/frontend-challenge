@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(({main, weather, wind}) => {
       const weatherCenter = new Weather(main.temp, weather[0], wind)
-      weatherTemperature.appendChild(renderer.createParagraph(weatherCenter.temperature))
+      weatherTemperature.prepend(renderer.createParagraph(weatherCenter.temperature))
       weatherDetails.appendChild(renderer.createParagraph(weather[0].main))
       weatherIcon.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
       weatherMessage.innerHTML = weatherCenter.message
