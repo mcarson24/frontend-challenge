@@ -4,6 +4,7 @@ body {
 
 .header {
   height: 25%;
+  /*min-height: 200px;*/
 }
 
 /** Map assets */
@@ -29,19 +30,19 @@ body {
 }
 
 .map-container {
-  height: 75%;
+  max-height: 75%;
 }
 
 .ol-popup {
-  display: none;
-  position: absolute;
   background-color: white;
-  padding: 10px;
+  border-radius: 10px;
   border: 1px solid #cccccc;
   bottom: 12px;
-  left: -50px;
-  border-radius: 10px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, .50);
+  display: none;
+  left: -50px;
+  padding: 10px;
+  position: absolute;
 }
 
 .ol-popup:after, .ol-popup:before {
@@ -58,14 +59,14 @@ body {
   border-top-color: white;
   border-width: 10px;
   left: 48px;
-  margin-left: -10px;
+  /*margin-left: -10px;*/
 }
 
 .ol-popup:before {
   border-top-color: #cccccc;
   border-width: 11px;
   left: 48px;
-  margin-left: -11px;
+  /*margin-left: -11px;*/
 }
 
 .ol-popup-content {

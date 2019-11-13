@@ -28,37 +28,16 @@ export default class HTMLRenderer {
 				<div class="text-center font-bold">${station.name}</div>
 				<div class="w-3/4 mx-auto mb-2 flex justify-center">
 					<div class="mr-6 text-center text-gray-900">
-						<div>${station.bikeTypes.classic}</div>
-						<div>Classic ${pluralize('Bikes', station.bikeTypes.classic)}</div>
+						<div class="text-2xl">${station.bikeTypes.classic}</div>
+						<div class="text-sm">Classic ${pluralize('Bikes', station.bikeTypes.classic)}</div>
 					</div>
 					<div class="text-center text-gray-900">
-						<div>${station.bikeTypes.electric}</div>
-						<div>Electric ${pluralize('Bikes', station.bikeTypes.electric)}</div>
+						<div class="text-2xl">${station.bikeTypes.electric}</div>
+						<div class="text-sm">Electric ${pluralize('Bikes', station.bikeTypes.electric)}</div>
 					</div>
 				</div>
 			</div>
 		`
-		// const popupElement 		= document.createElement('div')
-		// const container 		= document.createElement('div')
-		// const availableBikes 	= document.createElement('div')
-		// const availableDocks 	= document.createElement('div')
-		// this.indegoMap.removeLastPopup()
-		// container.classList.add('flex', 'justify-between')
-		// availableDocks.classList.add('flex', 'flex-col', 'h-16', 'items-center')
-		
-		// container.appendChild(availableDocks)
-		// popupElement.appendChild(container)
-
-		// // for (let type in station.bikeTypes) {
-		// // 	const paragraph = document.createElement('p')
-		// // 	const numberOfBikesOfType = station.bikeTypes[type]
-		// // 	paragraph.appendChild(document.createTextNode(`${numberOfBikesOfType} ${type} ${pluralize('bikes', numberOfBikesOfType)} `))
-		// // 	popupElement.appendChild(paragraph)
-		// // }
-
-		// this.indegoMap.currentPopup = popup
-		
-		// return popupElement
 	}
 
 	createStationInfoDiv(station) {

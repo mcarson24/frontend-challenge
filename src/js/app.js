@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       amountToShow = 140
     }
     indegoMap.reset()
-    indegoMap.removeAllMarkers()
+    // indegoMap.removeAllMarkers()
     sidebar.innerHTML = ''
     if (event.target.checked) {
       fullCheckbox.checked = false
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       amountToShow = 140
     }
     indegoMap.reset()
-    indegoMap.removeAllMarkers()
+    // indegoMap.removeAllMarkers()
     sidebar.innerHTML = ''
     if (event.target.checked) {
       empty.checked = false
