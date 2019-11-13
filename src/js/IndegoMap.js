@@ -23,6 +23,7 @@ export default class IndegoMap {
 	  })
 		this.currentMarkers = []
 		this.userMarker = ''
+		this.currentPopup = ''
 		this.orderedStations = []
 		this.stations = []
 		this.nextStationToShow = 0
@@ -47,12 +48,12 @@ export default class IndegoMap {
 	addUserMarker(coordinates) {
 		this.removeMarker(this.userMarker)
 		const newMarker = new Overlay({
-      position: fromLonLat([coordinates.longitude, coordinates.latitude]),
-      positioning: 'top-left',
-      element: document.createElement('div'),
-      stopEvent: false,
-      className: `marker user`
-    })
+    position: fromLonLat([coordinates.longitude, coordinates.latitude]),
+    positioning: 'top-left',
+    element: document.createElement('div'),
+    stopEvent: false,
+    className: `marker user`
+  })
 		this.userMarker = newMarker
     this.map.addOverlay(newMarker)	
     this.orderStationsByClosestTo(coordinates)
@@ -97,6 +98,10 @@ export default class IndegoMap {
 	removeAllMarkers() {
 		this.currentMarkers.forEach(marker => this.removeMarker(marker))
 		this.currentMarkers = []
+	}
+
+	removeLastPopup() {
+		this.removeMarker(this.currentPopup)
 	}
 
 	reset() {

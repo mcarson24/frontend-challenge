@@ -8,7 +8,7 @@ const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
 
 document.addEventListener('DOMContentLoaded', () => {
   const indegoMap           = new IndegoMap(center, boundaries)
-  const renderer            = new HTMLRenderer(indegoMap.map)
+  const renderer            = new HTMLRenderer(indegoMap)
   const addressInput        = document.querySelector('#address')
   const sidebar             = document.querySelector('#sidebar_content')
   const showMoreButton      = document.querySelector('#more')

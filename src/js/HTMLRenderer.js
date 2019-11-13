@@ -10,7 +10,7 @@ const classes = {
 
 export default class HTMLRenderer {
 	constructor(map) {
-		this.map = map
+		this.indegoMap = map
 	}
 
 	createParagraph(text, classes = []) {
@@ -22,19 +22,25 @@ export default class HTMLRenderer {
 		return paragraphElement
 	}
 
-	createPopUpFor(station) {
-		const popup = document.createElement('div')
+	createPopUpFor(station, popup) {
+		this.indegoMap.removeLastPopup()
+		const popupElement = document.createElement('div')
 		const heading = document.createElement('h2')
-		heading.appendChild(document.createTextNode('Available Bikes:'))
-		popup.appendChild(heading)
+		heading.appendChild(document.createTextNode(`Station Information:`))
+		popupElement.appendChild(heading)
+		const availableDocksParagraph = document.createElement('p')
+		availableDocksParagraph.appendChild(document.createTextNode(`${station.docksAvailable} Open Docks`))
+		popupElement.appendChild(availableDocksParagraph)
+
 		for (let type in station.bikeTypes) {
 			const paragraph = document.createElement('p')
 			const numberOfType = station.bikeTypes[type]
 			paragraph.appendChild(document.createTextNode(`${numberOfType} ${type} ${pluralize('bikes', numberOfType)} `))
-			popup.appendChild(paragraph)
+			popupElement.appendChild(paragraph)
 		}
 
-		return popup
+		this.indegoMap.currentPopup = popup
+		return popupElement
 	}
 
 	createStationInfoDiv(station) {
@@ -50,16 +56,16 @@ export default class HTMLRenderer {
 		]
 		elementChildren.forEach(child => element.appendChild(child))
 		element.addEventListener('click', () => {
-			this.map.values_.view.animate({
+			this.indegoMap.map.values_.view.animate({
 				center: fromLonLat([station.coordinates.longitude, station.coordinates.latitude]),
 				zoom: 18
 			})
 			const popup = new Popup()
 
-			this.map.addOverlay(popup)
+			this.indegoMap.map.addOverlay(popup)
 			popup.show(
 				fromLonLat([station.coordinates.longitude, station.coordinates.latitude]), 
-				this.createPopUpFor(station)
+				this.createPopUpFor(station, popup)
 			);
     	})
 		return element
