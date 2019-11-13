@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   emptyCheckbox.addEventListener('change', event => {
+    indegoMap.removeAllMarkers()
     let amountToShow = null
     if (indegoMap.nextStationToShow > 0) {
       amountToShow = indegoMap.nextStationToShow
@@ -132,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   fullCheckbox.addEventListener('change', event => {
+    indegoMap.removeAllMarkers()
     let amountToShow = null
     if (indegoMap.nextStationToShow > 0) {
       amountToShow = indegoMap.nextStationToShow

@@ -97,7 +97,9 @@ export default class IndegoMap {
 
 	removeAllMarkers() {
 		this.currentMarkers.forEach(marker => this.removeMarker(marker))
+		this.removeMarker(this.currentPopup)
 		this.currentMarkers = []
+		this.currentPopup = ''
 	}
 
 	removeLastPopup() {
