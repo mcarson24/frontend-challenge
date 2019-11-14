@@ -111,8 +111,17 @@ body {
   z-index: 100;
 }
 
+.map-container {
+  height: 75%;
+}
+
+#map,
+#sidebar {
+  height: 50%;
+}
+
 @media screen and (min-width: 768px) {
-  .map,
+  #map,
   #sidebar {
     height: 100%;
   }
@@ -148,6 +157,4 @@ body {
   right: 15px
 }
 
-.map-container {
-  height: 75%;
-}
+
