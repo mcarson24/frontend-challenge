@@ -41,10 +41,9 @@
 			hasBikes() {
 				this.shared.indegoMap.removeAllMarkers()
 				this.shared.indegoMap.reset()
-				this.shared.amountToShow = null
 
 				if (this.emptyIsClicked) {
-					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableBikes)
+					this.shared.filteredStations = this.shared.filteredStations.filter(station => station.hasAvailableBikes)
 				} else {
 					this.shared.filteredStations = this.shared.stations
 				}
@@ -52,10 +51,9 @@
 			hasDocks() {
 				this.shared.indegoMap.removeAllMarkers()
 				this.shared.indegoMap.reset()
-				this.shared.amountToShow = null
 
 				if (this.fullIsClicked) {
-					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableDocks)
+					this.shared.filteredStations = this.shared.filteredStations.filter(station => station.hasAvailableDocks)
 				} else {
 					this.shared.filteredStations = this.shared.stations
 				}
@@ -70,11 +68,11 @@
          this.shared.indegoMap.reset()
          this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
          this.shared.indegoMap.moveTo(this.geolocatedAddress)
+         this.shared.amountToShow = 5
          this.shared.filteredStations = this.shared.stations.sort((a, b) => {
       		return Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
       			Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
 		    	})
-         this.shared.amountToShow = 5
         })  
 			}
 		},
@@ -83,37 +81,5 @@
 				return this.address.trim().replace(/\s/g, '+')
 			}
 		}
-  // indegoMap.removeAllMarkers()
-  //   let amountToShow = null
-  //   if (indegoMap.nextStationToShow > 0) {
-  //     amountToShow = indegoMap.nextStationToShow
-  //   } else {
-  //     amountToShow = 140
-  //   }
-  //   indegoMap.reset()
-  //   // indegoMap.removeAllMarkers()
-  //   sidebar.innerHTML = ''
-  //   if (event.target.checked) {
-  //     empty.checked = false
-  //     empty.disabled = true
-  //   } else {
-  //     empty.disabled = false
-  //   }
-  //   getStationsWithAvailableDocks = !getStationsWithAvailableDocks
-   
-  //   if (getStationsWithAvailableDocks) {
-  //     indegoMap.orderedStations = indegoMap.stations.filter(station => {
-  //       return station.hasAvailableDocks
-  //     })
-  //   }
-  //   indegoMap.paginatedStations(amountToShow).forEach(station => {
-  //     // sidebar.appendChild(renderer.createStationInfoDiv(station))
-  //     indegoMap.addNewMarker(station.coordinates, station.status)
-  //   })
-
-  //   if (amountToShow == 0) {
-  //     moreButton.classList.add('hidden')
-  //   }
-  // })
 	}
 </script>

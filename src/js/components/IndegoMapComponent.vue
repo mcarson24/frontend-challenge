@@ -23,11 +23,13 @@
     	this.updateStations()
 		},
 		updated() {
+			
 			this.renderMarkers()
+			console.log(this.shared.amountToShow)
 		},
 		methods: {
 			renderMarkers() {
-				this.shared.filteredStations.map(station => {
+				this.shared.filteredStations.slice(0, this.shared.amountToShow).map(station => {
 					this.shared.indegoMap.addNewMarker(station.coordinates, station.status)
 				})
 			},

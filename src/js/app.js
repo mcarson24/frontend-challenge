@@ -157,7 +157,7 @@ let sharedData = {
   stations: [],
   filteredStations: [],
   indegoMap: '',
-  amountToShow: null
+  amountToShow: 141
 }
 
 const vue = new Vue({
