@@ -15,34 +15,34 @@ module.exports = {
 	},
 	module: {
 	  rules: [
-		{ 
-			test: /\.js$/, 
-			exclude: /node_modules/, 
-			loader: "babel-loader" 
-		},
-		{
-	        test: /\.js$/,
-	        use: ["source-map-loader"],
-	        enforce: "pre"
+			{ 
+				test: /\.js$/, 
+				exclude: /node_modules/, 
+				loader: "babel-loader" 
+			},
+			{
+	      test: /\.js$/,
+	      use: ["source-map-loader"],
+	      enforce: "pre"
 	    },
-      	{
+	    {
         test: /\.css$/,
-	        use: [
-	          'style-loader',
-	          MiniCssExtractPlugin.loader,
-	          { loader: 'css-loader', options: { importLoaders: 1 } },
-	          { 
-	          	loader: 'postcss-loader',
-	          	options: {
-	          		indent: 'postcss',
-	          		plugins: [
-	          			require('tailwindcss'),
-	          			require('autoprefixer')
-	          		]
-	          	}
-	          }
-	        ]
-      	}
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { 
+          	loader: 'postcss-loader',
+          	options: {
+          		indent: 'postcss',
+          		plugins: [
+          			require('tailwindcss'),
+          			require('autoprefixer')
+          		]
+          	}
+          }
+        ]
+    	}
 	  ]
 	},
 	plugins: [ 

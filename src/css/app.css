@@ -4,7 +4,6 @@ body {
 
 .header {
   height: 25%;
-  /*min-height: 200px;*/
 }
 
 /** Map assets */
@@ -27,10 +26,6 @@ body {
 .ol-attribution,
 .ol-compass {
   display: none;
-}
-
-.map-container {
-  max-height: 75%;
 }
 
 .ol-popup {
@@ -113,11 +108,7 @@ body {
 
 .map {
   width: 100%;
-  height: 50%;
-}
-
-#sidebar {
-  height: 50%;
+  z-index: 100;
 }
 
 @media screen and (min-width: 768px) {
@@ -157,3 +148,6 @@ body {
   right: 15px
 }
 
+.map-container {
+  height: 75%;
+}
