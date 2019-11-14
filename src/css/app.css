@@ -29,10 +29,6 @@ body {
   display: none;
 }
 
-.map-container {
-  max-height: 75%;
-}
-
 .ol-popup {
   background-color: white;
   border-radius: 10px;
@@ -157,3 +153,6 @@ body {
   right: 15px
 }
 
+.map-container {
+  height: 75%;
+}

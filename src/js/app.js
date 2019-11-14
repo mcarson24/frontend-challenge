@@ -17,10 +17,6 @@ const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
 //   const showMoreButton      = document.querySelector('#more')
 //   const emptyCheckbox       = document.querySelector('#empty')
 //   const fullCheckbox        = document.querySelector('#full')
-//   const weatherIceon        = document.querySelector('#weatherIcon')
-//   const weatherDetails      = document.querySelector('#details')
-//   const weatherTemperature  = document.querySelector('#temp')
-//   const weatherMessage      = document.querySelector('#message')
 
 //   let getStationsWithAvailableBikes = false
 //   let getStationsWithAvailableDocks = false
@@ -28,24 +24,6 @@ const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
 //   fullCheckbox.checked = false
 //   emptyCheckbox.checked = false
 //   addressInput.value = ''
-
-//   // Get weather information from OpenWeatherMap
-//   fetch('https://api.openweathermap.org/data/2.5/weather?q=Philadelphia,PA,US&units=imperial&appid=280846fd1decf39edf467bfc652a7e92')
-//     .then(response => response.json())
-//     .then(({main, weather, wind}) => {
-//       const weatherCenter = new Weather(main.temp, weather[0], wind)
-//       // weatherTemperature.prepend(renderer.createParagraph(weatherCenter.temperature))
-//       // weatherDetails.appendChild(renderer.createParagraph(weather[0].main))
-//       weatherIcon.src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
-//       if (weatherCenter.message) {
-//         weatherMessage.innerHTML = `
-//           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="mr-2 h-8 w-8 fill-current">
-//             <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 5h2v6H9V5zm0 8h2v2H9v-2z"/>
-//           </svg>
-//           ${weatherCenter.message}
-//         `
-//       }
-//     })
 
 //   // Get bike share information from 'https://www.rideindego.com/stations/json/'
 //   // Setup map markers and sidebar information for each station
@@ -181,7 +159,7 @@ Vue.component('indego-map', Map)
 Vue.component('sidebar', SideBar)
 
 let sharedData = {
-  stations: [],
+  stations: require('./defaultStations.json')['features'],
   indegoMap: ''
 }
 
