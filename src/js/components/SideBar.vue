@@ -1,7 +1,7 @@
 <template>
 	<div id="sidebar" class="sidebar overflow-scroll z-40 shadow-2xl md:w-2/5 md:w-1/3">
 		<div id="sidebar_content" class="flex flex-col items-center">
-			<div v-for="station in stations" 
+			<div v-for="station in shared.filteredStations" 
 					 @click="goto(station)"
 					 class="px-3 py-4 w-full border-b border-gray-300 flex flex-col hover:bg-gray-100 hover:cursor-pointer"
 					 >
@@ -37,7 +37,7 @@
 			}
 		},
 		updated() {
-			// this.paginate()
+			this.paginate()
 		},
 		methods: {
 			goto(station) {
@@ -46,10 +46,10 @@
 					zoom: 18
 				})
 			},
-			// paginate() {
-			// 	this.stations = this.shared.filteredStations.slice(0, this.shared.amountToShow)
-			// 	this.shared.amountToShow += 5
-			// },
+			paginate() {
+				// this.stations = this.shared.filteredStations.slice(0, this.shared.amountToShow)
+				// this.shared.amountToShow += 5
+			},
 			bikesAvailableSentence(station) {
 				return `${station.bikesAvailable} ${pluralize('Bikes', station.bikesAvailable)}`
 			},

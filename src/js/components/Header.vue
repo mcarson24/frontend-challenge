@@ -12,11 +12,11 @@
 				<div class="w-full flex justify-between">
 					<div class="flex flex-col items-center">
 						<input type="checkbox" v-model="emptyIsClicked" @change="hasBikes" :disabled="fullIsClicked" class="h-5 w-5">
-						<label for="empty" class="text-center">Available bikes</label>
+						<label for="empty" class="text-center">Stations with Bikes</label>
 					</div>
 					<div class="flex flex-col items-center">
 						<input type="checkbox" v-model="fullIsClicked" @change="hasDocks" :disabled="emptyIsClicked" class="h-5 w-5">
-						<label for="full" class="text-center">Available docks</label>
+						<label for="full" class="text-center">Stations with Open Docks</label>
 					</div>
 				</div>
 			</div>
@@ -61,19 +61,26 @@
 				}
 			},
 			gelocateAddress() {
-				fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${this.address},+Philadelphia,+PA`)
+				if (!this.escapedAddress.length) this.address = '1168 E. Passyunk Ave.'
+				fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${this.escapedAddress},+Philadelphia,+PA`)
         .then(response => response.json())
         .then(({results}) => {
          this.geolocatedAddress = { latitude: results[0].location.lat, longitude: results[0].location.lng }
          this.shared.indegoMap.removeAllMarkers()
          this.shared.indegoMap.reset()
          this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
+         this.shared.indegoMap.moveTo(this.geolocatedAddress)
          this.shared.filteredStations = this.shared.stations.sort((a, b) => {
       		return Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
       			Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
 		    	})
          this.shared.amountToShow = 5
         })  
+			}
+		},
+		computed: {
+			escapedAddress() {
+				return this.address.trim().replace(/\s/g, '+')
 			}
 		}
   // indegoMap.removeAllMarkers()

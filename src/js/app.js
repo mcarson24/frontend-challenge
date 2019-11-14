@@ -1,14 +1,7 @@
-import Station from './Station'
-// import IndegoMap from './IndegoMap'
-import HTMLRenderer from './HTMLRenderer'
-import {center, boundaries} from './Philadelphia'
-import Weather from './Weather'
 import Vue from 'vue'
 import Header from './components/Header.vue'
 import IndegoMap from './components/IndegoMapComponent.vue'
 import SideBar from './components/SideBar.vue'
-
-const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   // const indegoMap           = new IndegoMap(center, boundaries)
