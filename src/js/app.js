@@ -1,10 +1,11 @@
 import Station from './Station'
-import IndegoMap from './IndegoMap'
+// import IndegoMap from './IndegoMap'
 import HTMLRenderer from './HTMLRenderer'
 import {center, boundaries} from './Philadelphia'
 import Weather from './Weather'
 import Vue from 'vue'
-import Map from './components/IndegoMapComponent.vue'
+import Header from './components/Header.vue'
+import IndegoMap from './components/IndegoMapComponent.vue'
 import SideBar from './components/SideBar.vue'
 
 const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
@@ -155,20 +156,16 @@ const DEFAULT_ADDRESS = '1168 E. Passyunk Ave.'
 //   // })
 // })
 
-Vue.component('indego-map', Map)
+Vue.component('header-input', Header)
+Vue.component('indego-map', IndegoMap)
 Vue.component('sidebar', SideBar)
 
 let sharedData = {
-  stations: require('./defaultStations.json')['features'],
-  indegoMap: ''
+  stations: [],
+  filteredStations: [],
+  indegoMap: '',
+  amountToShow: null
 }
-
-fetch('https://dkw6qugbfeznv.cloudfront.net/')
-  .then(response => response.json())
-  .then(results => {
-    results.features.forEach(station => sharedData.stations.push(new Station(station)))
-    // sharedData.indegoMap = new IndegoMap(center, boundaries)
-  })
 
 const vue = new Vue({
   el: '#app',
