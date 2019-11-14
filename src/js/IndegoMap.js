@@ -11,7 +11,7 @@ export default class IndegoMap {
 		this.map = new Map({
 	    layers: [
 	      new TileLayer({
-	        source : new OSM()
+	        source: new OSM()
 	      })
 	    ],
 	    target: 'map',
