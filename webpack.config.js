@@ -28,19 +28,10 @@ module.exports = {
 	    {
         test: /\.css$/,
         use: [
-          'style-loader',
+          // 'style-loader',
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          { 
-          	loader: 'postcss-loader',
-          	options: {
-          		indent: 'postcss',
-          		plugins: [
-          			require('tailwindcss'),
-          			require('autoprefixer')
-          		]
-          	}
-          }
+          'postcss-loader'
         ]
     	}
 	  ]
