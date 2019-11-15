@@ -4,7 +4,8 @@
 				<img :src="weatherIcon">
 				<div class="flex flex-col justify-center">
 					<div class="text-3xl flex">{{ temperature }}&deg;</div>
-					<div>{{ this.weather.wind.speed }}mph <span class="font-bold">{{cardinalDirection}}</span></div>
+					<!-- <div>{{ this.weather.wind.speed }}mph <span class="font-bold">{{cardinalDirection}}</span></div> -->
+		      <span v-text="weather.weather.description"></span>
 				</div>
 			</div>
 			<div v-show="weatherMessage" class="px-4 flex items-center">
