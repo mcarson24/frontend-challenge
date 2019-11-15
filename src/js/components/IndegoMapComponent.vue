@@ -6,10 +6,10 @@
 </template>
 
 <script>
-	import IndegoMap from '../IndegoMap'
 	import Station from '../Station'
-	import {center, boundaries} from '../Philadelphia'
+	import IndegoMap from '../IndegoMap'
 	import WeatherWidget from './WeatherWidget.vue'
+	import {center, boundaries} from '../Philadelphia'
 	
 	export default {
 		components: { WeatherWidget },

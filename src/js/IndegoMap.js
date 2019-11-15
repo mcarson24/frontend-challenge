@@ -4,7 +4,6 @@ import OSM from 'ol/source/OSM';
 import Overlay from 'ol/Overlay';
 import {fromLonLat} from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
-import Haversine from 'haversine-distance'
 
 export default class IndegoMap {
 	constructor(center, mapBounds) {
