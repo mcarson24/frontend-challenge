@@ -23,9 +23,7 @@
     	this.updateStations()
 		},
 		updated() {
-			
 			this.renderMarkers()
-			console.log(this.shared.amountToShow)
 		},
 		methods: {
 			renderMarkers() {
@@ -41,10 +39,9 @@
     			stations = stations.map(station => new Station(station))
     			this.shared.stations = stations
     			this.shared.filteredStations = stations
+    			this.shared.amountToShow = stations.length
     		})
 			}
-		},
-		computed: {
 		}
 	}
 </script>

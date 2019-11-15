@@ -21,22 +21,14 @@ export default class IndegoMap {
 	      extent: mapBounds
 	    })
 	  })
-		this.stations = []
-		this.orderedStations = []
 		this.currentMarkers = []
 		this.userMarker = ''
 		this.currentPopup = ''
-		this.nextStationToShow = 0
-	}
-
-	get noMoreStationsToDisplay() {
-		return this.nextStationToShow >= this.orderedStations.length
 	}
 
 	addNewMarker(coordinates, markerType) {
 		const newMarker = new Overlay({
       position: fromLonLat([coordinates.longitude, coordinates.latitude]),
-      // positioning: 'top-center',
       element: document.createElement('div'),
       stopEvent: false,
       className: `marker ${markerType}`
@@ -56,38 +48,12 @@ export default class IndegoMap {
 		})
 		this.userMarker = newMarker
     this.map.addOverlay(newMarker)	
-    this.orderStationsByClosestTo(coordinates)
 	}
 
 	moveTo(coordinates) {
 		this.map.values_.view.animate({
 	      center: fromLonLat([coordinates.longitude, coordinates.latitude]),
 	      zoom: 17
-	    })
-	}
-
-	orderStationsByClosestTo(coordinates) {
-		this.orderedStations = this.stations.sort((a, b) => {
-      		return Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
-            	   Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
-    	})
-	}
-
-	paginatedStations(amountToShow = 5) {
-		const stations = this.orderedStations.slice(this.nextStationToShow, this.nextStationToShow + amountToShow)
-		this.nextStationToShow += amountToShow
-		return stations
-	}
-
-	getStationsWithAvailableBikes() {
-		this.orderedStations = this.orderedStations.filter(station => {
-	      return station.bikesAvailable > 0
-	    })
-	}
-
-	getStationsWithAvailableDocks() {
-		this.orderedStations = this.orderedStations.filter(station => {
-	      return station.docksAvailable > 0
 	    })
 	}
 
@@ -107,7 +73,7 @@ export default class IndegoMap {
 	}
 
 	reset() {
-		this.orderedStations = this.stations
+		this.removeAllMarkers()
 		this.nextStationToShow = 0
 	}
 }

@@ -3,7 +3,7 @@
 			<div class="flex">
 				<img :src="weatherIcon">
 				<div class="flex flex-col justify-center">
-					<div class="text-3xl flex">{{ this.weather.main.temp }}&deg;</div>
+					<div class="text-3xl flex">{{ temperature }}&deg;</div>
 					<div>{{ this.weather.wind.speed }}mph <span class="font-bold">{{cardinalDirection}}</span></div>
 				</div>
 			</div>
@@ -44,6 +44,15 @@
 			}
 		},
 		computed: {
+			temperature() {
+				return Math.round(this.weather.main.temp)
+			},
+			weatherIcon() {
+				return `https://openweathermap.org/img/wn/${this.weather.weather.icon}@2x.png`
+			},
+			cardinalDirection() {
+				return Windrose.getPoint(this.weather.wind.deg, { depth: 2}).symbol
+			},
 			weatherMessage() {
 				if (this.weather.main.temp > 90) return "It's getting warm, make sure you stay hydrated out there."
 				if (this.weather.main.temp < 32) return 'Watch out for ice!'
@@ -61,12 +70,6 @@
 					case 'Thunderstorm':
 						return "It's dangerous out there. Bike with extreme caution."
 				}
-			},
-			weatherIcon() {
-				return `https://openweathermap.org/img/wn/${this.weather.weather.icon}@2x.png`
-			},
-			cardinalDirection() {
-				return Windrose.getPoint(this.weather.wind.deg, { depth: 2}).symbol
 			}
 		}
 	}

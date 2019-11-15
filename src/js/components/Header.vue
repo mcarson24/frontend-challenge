@@ -64,16 +64,19 @@
         .then(response => response.json())
         .then(({results}) => {
          this.geolocatedAddress = { latitude: results[0].location.lat, longitude: results[0].location.lng }
-         this.shared.indegoMap.removeAllMarkers()
          this.shared.indegoMap.reset()
          this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
          this.shared.indegoMap.moveTo(this.geolocatedAddress)
          this.shared.amountToShow = 5
-         this.shared.filteredStations = this.shared.stations.sort((a, b) => {
-      		return Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
-      			Haversine({ lat: this.geolocatedAddress.latitude, lon: this.geolocatedAddress.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
-		    	})
+         this.shared.filteredStations = this.orderByClosest()
         })  
+			},
+			orderByClosest() {
+				const address = this.geolocatedAddress
+				return this.shared.stations.sort((a, b) => {
+      		return Haversine({ lat: address.latitude, lon: address.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
+      					 Haversine({ lat: address.latitude, lon: address.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
+		    	})
 			}
 		},
 		computed: {

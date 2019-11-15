@@ -16,14 +16,15 @@
 							@click="getMoreStations"
 							class="mr-8 underline text-purple-900"
 							>
-						More</button>
+						More
+			</button>
 		</div>
 	</div>
 </template>
 
 <script>
 	import pluralize from 'pluralize'
-	import Station from '../Station'
+	import PopupGenerator from '../Popup'
 	import {fromLonLat} from 'ol/proj'
 
 	export default {
@@ -32,23 +33,20 @@
 				shared: this.$root.$data.sharedData,
 			}
 		},
-		created() {
-		},
-		updated() {
-			console.log(this.shared.amountToShow)
-		},
 		methods: {
 			goto(station) {
-				this.shared.indegoMap.map.values_.view.animate({
-					center: fromLonLat([station.coordinates.longitude, station.coordinates.latitude]),
-					zoom: 18
-				})
+				this.shared.indegoMap.removeLastPopup()
+				this.shared.indegoMap.moveTo(station.coordinates)
+				const popup = new PopupGenerator(station)
+				this.shared.indegoMap.map.addOverlay(popup.popup)
+				popup.show()
+				this.shared.indegoMap.currentPopup = popup.popup
 			},
 			getMoreStations() {
 				this.shared.indegoMap.removeAllMarkers()
 				const stations = this.shared.filteredStations
-				this.shared.filteredStations = [] // Trigger an update to filteredStations
-				this.shared.filteredStations = stations
+				this.shared.filteredStations = [] // Force an update to filteredStations
+				this.shared.filteredStations = stations 
 				this.shared.amountToShow += 5
 			},
 			bikesAvailableSentence(station) {
@@ -60,7 +58,7 @@
 		},
 		computed: {
 			moreStationsToShow() {
-				return this.shared.amountToShow != this.shared.stations.length
+				return this.shared.amountToShow < this.shared.stations.length
 			}
 		}
 	}
