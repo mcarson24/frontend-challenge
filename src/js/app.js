@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (indegoMap.nextStationToShow > 0) {
       amountToShow = indegoMap.nextStationToShow
     } else {
-      amountToShow = 140
+      amountToShow = indegoMap.stations.length
     }
     indegoMap.reset()
     // indegoMap.removeAllMarkers()
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (indegoMap.nextStationToShow > 0) {
       amountToShow = indegoMap.nextStationToShow
     } else {
-      amountToShow = 140
+      amountToShow = indegoMap.stations.length
     }
     indegoMap.reset()
     // indegoMap.removeAllMarkers()
