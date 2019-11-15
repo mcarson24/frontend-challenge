@@ -58,8 +58,9 @@ export default class HTMLRenderer {
 				zoom: 18
 			})
 			const popup = new Popup()
-
+			this.indegoMap.removeLastPopup()
 			this.indegoMap.map.addOverlay(popup)
+			this.indegoMap.currentPopup = popup
 			popup.show(
 				fromLonLat([station.coordinates.longitude, station.coordinates.latitude]), 
 				this.createPopUpFor(station, popup)
