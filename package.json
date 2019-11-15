@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode=development",
     "production": "NODE_ENV=production webpack -p --mode=production",
-    "watch": "npm run dev -- --watch",
+    "watch": "npm run dev -- --watch"
   },
   "repository": {
     "type": "git",
