@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const showMoreButton      = document.querySelector('#more')
   const emptyCheckbox       = document.querySelector('#empty')
   const fullCheckbox        = document.querySelector('#full')
-  const weatherIceon        = document.querySelector('#weatherIcon')
+  const weatherIcon         = document.querySelector('#weatherIcon')
   const weatherDetails      = document.querySelector('#details')
   const weatherTemperature  = document.querySelector('#temp')
   const weatherMessage      = document.querySelector('#message')
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     if (amountToShow == 0) {
-      moreButton.classList.add('hidden')
+      showMoreButton.classList.add('hidden')
     }
   })
 
@@ -151,10 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // indegoMap.removeAllMarkers()
     sidebar.innerHTML = ''
     if (event.target.checked) {
-      empty.checked = false
-      empty.disabled = true
+      emptyCheckbox.checked = false
+      emptyCheckbox.disabled = true
     } else {
-      empty.disabled = false
+      emptyCheckbox.disabled = false
     }
     getStationsWithAvailableDocks = !getStationsWithAvailableDocks
    
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     if (amountToShow == 0) {
-      moreButton.classList.add('hidden')
+      showMoreButton.classList.add('hidden')
     }
   })
 })

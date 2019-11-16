@@ -9,18 +9,18 @@ import Haversine from 'haversine-distance'
 export default class IndegoMap {
 	constructor(center, mapBounds) {
 		this.map = new Map({
-	    layers: [
-	      new TileLayer({
-	        source : new OSM()
-	      })
-	    ],
-	    target: 'map',
-	    view: new View({
-	      center: fromLonLat(center),
-	      zoom: 14,
-	      extent: mapBounds
-	    })
-	  })
+			layers: [
+				new TileLayer({
+					source : new OSM()
+				})
+			],
+			target: 'map',
+			view: new View({
+				center: fromLonLat(center),
+				zoom: 14,
+				extent: mapBounds
+			})
+		})
 		this.stations = []
 		this.orderedStations = []
 		this.currentMarkers = []
@@ -48,11 +48,11 @@ export default class IndegoMap {
 	addUserMarker(coordinates) {
 		this.removeMarker(this.userMarker)
 		const newMarker = new Overlay({
-	    position: fromLonLat([coordinates.longitude, coordinates.latitude]),
-	    // positioning: 'top-center',
-	    element: document.createElement('div'),
-	    stopEvent: false,
-	    className: `marker user`
+			position: fromLonLat([coordinates.longitude, coordinates.latitude]),
+			// positioning: 'top-center',
+			element: document.createElement('div'),
+			stopEvent: false,
+			className: `marker user`
 		})
 		this.userMarker = newMarker
     this.map.addOverlay(newMarker)	
@@ -61,16 +61,16 @@ export default class IndegoMap {
 
 	moveTo(coordinates) {
 		this.map.values_.view.animate({
-	      center: fromLonLat([coordinates.longitude, coordinates.latitude]),
-	      zoom: 17
-	    })
+			center: fromLonLat([coordinates.longitude, coordinates.latitude]),
+			zoom: 17
+		})
 	}
 
 	orderStationsByClosestTo(coordinates) {
 		this.orderedStations = this.stations.sort((a, b) => {
-      		return Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
-            	   Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
-    	})
+				return Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
+								Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
+		})
 	}
 
 	paginatedStations(amountToShow = 5) {
@@ -81,14 +81,14 @@ export default class IndegoMap {
 
 	getStationsWithAvailableBikes() {
 		this.orderedStations = this.orderedStations.filter(station => {
-	      return station.bikesAvailable > 0
-	    })
+			return station.bikesAvailable > 0
+		})
 	}
 
 	getStationsWithAvailableDocks() {
 		this.orderedStations = this.orderedStations.filter(station => {
-	      return station.docksAvailable > 0
-	    })
+			return station.docksAvailable > 0
+		})
 	}
 
 	removeMarker(marker) {

@@ -22,7 +22,7 @@ export default class HTMLRenderer {
 		return paragraphElement
 	}
 
-	createPopUpFor(station, popup) {
+	createPopUpFor(station) {
 		return `
 			<div id="popup">
 				<div class="text-center font-bold">${station.name}</div>
@@ -65,7 +65,7 @@ export default class HTMLRenderer {
 				fromLonLat([station.coordinates.longitude, station.coordinates.latitude]), 
 				this.createPopUpFor(station, popup)
 			);
-    	})
+    })
 		return element
 	}
 }
