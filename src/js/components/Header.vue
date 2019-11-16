@@ -74,7 +74,7 @@
 			orderByClosest() {
 				const address = this.geolocatedAddress
 				return this.shared.stations.sort((a, b) => {
-      		return Haversine({ lat: address.latitude, lon: address.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
+      		return Haversine({ lat: address.latitude, lon: address.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) - 
       					 Haversine({ lat: address.latitude, lon: address.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
 		    	})
 			}
