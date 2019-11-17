@@ -68,7 +68,7 @@ export default class IndegoMap {
 
 	orderStationsByClosestTo(coordinates) {
 		this.orderedStations = this.stations.sort((a, b) => {
-				return Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) > 
+				return Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) - 
 								Haversine({ lat: coordinates.latitude, lon: coordinates.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
 		})
 	}
