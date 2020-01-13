@@ -59,16 +59,18 @@
 				}
 			},
 			gelocateAddress() {
-				if (!this.escapedAddress.length) this.address = '1168 E. Passyunk Ave.'
-				fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${this.escapedAddress},+Philadelphia,+PA`)
+				if (!this.escapedAddress.length) this.address = '1168 E. Passyunk Ave.';
+				fetch(`/getAddress/${this.escapedAddress}`)
+				// fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${this.escapedAddress},+Philadelphia,+PA`)
         .then(response => response.json())
         .then(({results}) => {
-         this.geolocatedAddress = { latitude: results[0].location.lat, longitude: results[0].location.lng }
-         this.shared.indegoMap.reset()
-         this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
-         this.shared.indegoMap.moveTo(this.geolocatedAddress)
-         this.shared.amountToShow = 5
-         this.shared.filteredStations = this.orderByClosest()
+					console.log(results);
+					this.geolocatedAddress = { latitude: results[0].location.lat, longitude: results[0].location.lng }
+					this.shared.indegoMap.reset()
+					this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
+					this.shared.indegoMap.moveTo(this.geolocatedAddress)
+					this.shared.amountToShow = 5
+					this.shared.filteredStations = this.orderByClosest()
         })  
 			},
 			orderByClosest() {

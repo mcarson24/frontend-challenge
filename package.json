@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "dotenv-config": "^0.1.1",
+    "express": "^4.17.1",
     "haversine-distance": "^1.1.6",
     "ol": "^6.1.1",
     "pluralize": "^8.0.0",
