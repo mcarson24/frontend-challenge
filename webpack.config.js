@@ -11,8 +11,9 @@ module.exports = {
 		]
 	},
 	output: {
-		path: path.resolve(__dirname, './'),
-		filename: 'public/js/[name].js'
+		filename: 'public/js/[name].js',
+		publicPath: 'public/',
+		path: path.resolve(__dirname, './')
 	},
 	module: {
 	  rules: [
@@ -42,7 +43,16 @@ module.exports = {
           		indent: 'postcss',
           		plugins: [
           			require('tailwindcss'),
-          			require('autoprefixer')
+								require('autoprefixer'),
+								require('@fullhuman/postcss-purgecss')({
+									content: [
+										'./src/**/**/*.vue',
+										'./src/*.js',
+										'./public/index.html',
+										'./src/css/*.css'
+									],
+									defaultExtractor: content => content.match(/[A-za-z0-9-_:/]+/g) || []
+								})
           		]
           	}
           }
