@@ -2,4 +2,5 @@
 /public/js/
 /public/css/
 /node_modules/
+/src/js/config.json
 /**/**/.DS_Store
