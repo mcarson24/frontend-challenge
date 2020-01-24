@@ -1,5 +1,4 @@
 const path									= require('path');
-const webpack 						 	= require('webpack');
 const MiniCssExtractPlugin 	= require('mini-css-extract-plugin');
 
 module.exports = {
@@ -10,22 +9,22 @@ module.exports = {
 		]
 	},
 	output: {
-		path: path.resolve(__dirname, './'),
+		path: path.resolve('./'),
 		filename: 'public/js/[name].js'
 	},
 	module: {
-	  rules: [
+		rules: [
 			{ 
 				test: /\.js$/, 
 				exclude: /node_modules/, 
 				loader: "babel-loader" 
 			},
 			{
-	      test: /\.js$/,
-	      use: ["source-map-loader"],
-	      enforce: "pre"
-	    },
-	    {
+				test: /\.js$/,
+				use: ["source-map-loader"],
+				enforce: "pre"
+			},
+			{
         test: /\.css$/,
         use: [
           // 'style-loader',
@@ -33,8 +32,8 @@ module.exports = {
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader'
         ]
-    	}
-	  ]
+			}
+		]
 	},
 	plugins: [ 
 		new MiniCssExtractPlugin({
