@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    maxWidth: {
+      'sidebar': '24rem'
+    },
     extend: {}
   },
   variants: {

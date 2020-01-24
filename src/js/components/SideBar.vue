@@ -1,5 +1,5 @@
 <template>
-	<div id="sidebar" class="sidebar overflow-scroll z-40 shadow-2xl md:max-w-xl">
+	<div id="sidebar" class="sidebar overflow-scroll z-40 shadow-2xl md:w-2/5 md:w-1/3 max-w-sidebar">
 		<div id="sidebar_content" class="flex flex-col items-center">
 			<div v-for="station in shared.filteredStations.slice(0, shared.amountToShow)" 
 					 @click="goto(station)"
