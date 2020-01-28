@@ -4,6 +4,7 @@ export default class Station {
 			latitude: station.geometry.coordinates[1],
 			longitude: station.geometry.coordinates[0]
 		}
+		this.id = station.properties.kioskId
 		this.bikesAvailable = station.properties.bikesAvailable
 		this.docksAvailable = station.properties.docksAvailable
 		this.name = station.properties.name

@@ -2,14 +2,17 @@
 	<div class="header flex flex-col justify-center overflow-scroll items-center bg-purple-900">
 		<div class="w-full md:w-3/5 flex flex-col items-center">
 			<h1 class="mb-4 text-3xl md:text-4xl text-center text-gray-100">Find an Indego Station</h1>
-			<input class="mb-4 px-2 w-1/2 h-10 rounded" 
-						 type="text" 
-						 placeholder="1168 E. Passyunk Ave"
-						 v-model="address"
-						 v-on:keydown.enter="gelocateAddress"
-						 >
+			<div class="flex mb-4">
+				<input class="flex-grow mr-2 px-2 w-1/2 h-10 rounded" 
+							type="text" 
+							placeholder="1168 E. Passyunk Ave"
+							v-model="address"
+							v-on:keydown.enter="gelocateAddress"
+							>
+				<button @click="gelocateAddress" class="px-2 rounded bg-purple-900 border border-white text-white">Go</button>
+			</div>
 			<div class="w-1/2 flex flex-col items-center text-gray-100">
-				<div class="w-full flex justify-between">
+				<div class="w-full mb-4 flex justify-between">
 					<div class="flex flex-col items-center">
 						<input type="checkbox" v-model="emptyIsClicked" @change="hasBikes" :disabled="fullIsClicked" class="h-5 w-5">
 						<label for="empty" class="text-center">Stations with Bikes</label>
@@ -19,6 +22,7 @@
 						<label for="full" class="text-center">Stations with Open Docks</label>
 					</div>
 				</div>
+				<button @click="reset" class="p-2 rounded bg-purple-900 border border-white">Reset Map</button>
 			</div>
 		</div>
 	</div>
@@ -26,6 +30,7 @@
 
 <script>
 	import Haversine from 'haversine-distance'
+	import { center } from '../Philadelphia'
 
 	export default {
 		data() {
@@ -39,20 +44,25 @@
 		},
 		methods: {
 			hasBikes() {
+				console.log('bikes')
 				this.shared.indegoMap.reset()
 
 				if (this.emptyIsClicked) {
-					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableBikes)
+					this.removeEmptyStations()
+					
 				} else {
 					this.shared.filteredStations = this.shared.stations
 				}
 			},
 			hasDocks() {
+				console.log('docks')
 				this.shared.indegoMap.reset()
 
 				if (this.fullIsClicked) {
-					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableDocks)
+					this.removeFullStations();
+					
 				} else {
+					console.log('not full')
 					this.shared.filteredStations = this.shared.stations
 				}
 			},
@@ -68,6 +78,8 @@
 					this.shared.indegoMap.moveTo(this.geolocatedAddress)
 					this.shared.amountToShow = 5
 					this.shared.filteredStations = this.orderByClosest()
+					if (this.fullIsClicked) this.removeFullStations()
+					if (this.emptyIsClicked) this.removeEmptyStations()
         })  
 			},
 			orderByClosest() {
@@ -76,6 +88,19 @@
       		return Haversine({ lat: address.latitude, lon: address.longitude }, { lat: a.coordinates.latitude, lon: a.coordinates.longitude}) - 
       					 Haversine({ lat: address.latitude, lon: address.longitude }, { lat: b.coordinates.latitude, lon: b.coordinates.longitude})
 		    	})
+			},
+			reset() {
+				this.shared.indegoMap.reset()
+				this.emptyIsClicked = this.fullIsClicked = false
+				this.shared.filteredStations = this.shared.stations.filter(station => station.id)
+				this.shared.amountToShow = 140
+				this.shared.indegoMap.defaultView(center)
+			},
+			removeFullStations() {
+				this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableDocks)
+			},
+			removeEmptyStations() {
+				this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableBikes)
 			}
 		},
 		computed: {

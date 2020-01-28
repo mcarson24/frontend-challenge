@@ -56,6 +56,14 @@ export default class IndegoMap {
 	    })
 	}
 
+	defaultView(coordinates) {
+		this.removeMarker(this.userMarker)
+		this.map.values_.view.animate({
+			center: fromLonLat(coordinates),
+			zoom: 14
+		})
+	}
+
 	removeMarker(marker) {
 		this.map.removeOverlay(marker)
 	}
