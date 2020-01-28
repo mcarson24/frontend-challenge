@@ -29,4 +29,4 @@ app.get('/getAddress/:address', async (req, response) => {
   );
 })
 
-app.listen(3000, () => console.log('http://localhost:3000'));
+app.listen(3030, () => console.log('http://localhost:3030'));

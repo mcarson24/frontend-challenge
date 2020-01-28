@@ -1,4 +1,6 @@
 import Vue from 'vue'
+
+
 import Header from './components/Header.vue'
 import SideBar from './components/SideBar.vue'
 import IndegoMap from './components/IndegoMapComponent.vue'

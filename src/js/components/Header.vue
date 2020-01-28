@@ -39,32 +39,29 @@
 		},
 		methods: {
 			hasBikes() {
-				this.shared.indegoMap.removeAllMarkers()
 				this.shared.indegoMap.reset()
 
 				if (this.emptyIsClicked) {
-					this.shared.filteredStations = this.shared.filteredStations.filter(station => station.hasAvailableBikes)
+					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableBikes)
 				} else {
 					this.shared.filteredStations = this.shared.stations
 				}
 			},
 			hasDocks() {
-				this.shared.indegoMap.removeAllMarkers()
 				this.shared.indegoMap.reset()
 
 				if (this.fullIsClicked) {
-					this.shared.filteredStations = this.shared.filteredStations.filter(station => station.hasAvailableDocks)
+					this.shared.filteredStations = this.shared.stations.filter(station => station.hasAvailableDocks)
 				} else {
 					this.shared.filteredStations = this.shared.stations
 				}
 			},
 			gelocateAddress() {
-				if (!this.escapedAddress.length) this.address = '1168 E. Passyunk Ave.';
+				if (!this.escapedAddress.length) this.address = '1168 E. Passyunk Ave.'
+
 				fetch(`/getAddress/${this.escapedAddress}`)
-				// fetch(`https://api.geocod.io/v1.4/geocode?api_key=596e1857bc5e3d3ad58c153b0e55d0abca91890&fields=&q=${this.escapedAddress},+Philadelphia,+PA`)
         .then(response => response.json())
         .then(({results}) => {
-					console.log(results);
 					this.geolocatedAddress = { latitude: results[0].location.lat, longitude: results[0].location.lng }
 					this.shared.indegoMap.reset()
 					this.shared.indegoMap.addUserMarker(this.geolocatedAddress)
