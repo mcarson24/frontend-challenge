@@ -4,7 +4,7 @@ body {
 
 .header {
   height: 25%;
-  /*min-height: 200px;*/
+  min-height: 250px;
 }
 
 /** Map assets */
