@@ -44,7 +44,6 @@
 		},
 		methods: {
 			hasBikes() {
-				console.log('bikes')
 				this.shared.indegoMap.reset()
 
 				if (this.emptyIsClicked) {
@@ -55,14 +54,12 @@
 				}
 			},
 			hasDocks() {
-				console.log('docks')
 				this.shared.indegoMap.reset()
 
 				if (this.fullIsClicked) {
 					this.removeFullStations();
 					
 				} else {
-					console.log('not full')
 					this.shared.filteredStations = this.shared.stations
 				}
 			},
