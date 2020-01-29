@@ -3,8 +3,7 @@ body {
 }
 
 .header {
-  height: 25%;
-  min-height: 250px;
+  min-height: 25vh;
 }
 
 /** Map assets */
@@ -154,5 +153,5 @@ body {
 }
 
 .map-container {
-  height: 75%;
+  height: 75vh;
 }

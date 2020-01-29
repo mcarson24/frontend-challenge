@@ -11,15 +11,15 @@
 							>
 				<button @click="gelocateAddress" class="px-2 rounded bg-purple-900 border border-white text-white">Go</button>
 			</div>
-			<div class="w-1/2 flex flex-col items-center text-gray-100">
-				<div class="w-full mb-4 flex justify-between">
+			<div class="w-full xl:w-1/2 flex flex-col items-center text-gray-100">
+				<div class="w-full mb-3 flex justify-center xl:items-center">
 					<div class="flex flex-col items-center">
 						<input type="checkbox" v-model="emptyIsClicked" @change="hasBikes" :disabled="fullIsClicked" class="h-5 w-5">
-						<label for="empty" class="text-center">Stations with Bikes</label>
+						<label for="empty" class="mx-2 text-center">Stations with Bikes</label>
 					</div>
 					<div class="flex flex-col items-center">
 						<input type="checkbox" v-model="fullIsClicked" @change="hasDocks" :disabled="emptyIsClicked" class="h-5 w-5">
-						<label for="full" class="text-center">Stations with Open Docks</label>
+						<label for="full" class="mx-2 text-center">Stations with Open Docks</label>
 					</div>
 				</div>
 				<button @click="reset" class="p-2 rounded bg-purple-900 border border-white">Reset Map</button>
