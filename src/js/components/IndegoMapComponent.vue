@@ -32,7 +32,8 @@
 				})
 			},
 			updateStations() {
-				fetch('https://dkw6qugbfeznv.cloudfront.net/')
+				fetch('https://kiosks.bicycletransit.workers.dev/phl')
+				// fetch('https://dkw6qugbfeznv.cloudfront.net/')
     		.then(response => response.json())
     		.then(results => {
     			let stations = results['features']
